@@ -78,14 +78,6 @@ public class Puntuacion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Puntuacion().setVisible(true);
-            }
-        });
-    }
-
     public void actualizarPuntos(String puntuacion){
         puntos.setText(puntuacion);
     }

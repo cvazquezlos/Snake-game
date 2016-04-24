@@ -16,7 +16,7 @@ public class Opciones extends javax.swing.JFrame {
         eleccion1.add("Blanco");
         // Elección del color de la serpiente
         eleccion2.add("Rojo");
-        eleccion2.add("Negro");
+        eleccion2.add("Gris");
         eleccion2.add("Magenta");
         eleccion2.add("Marrón");
         eleccion2.add("Blanco");
@@ -246,6 +246,7 @@ public class Opciones extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         PantallaPrincipal pp=new PantallaPrincipal();
         pp.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void AlmacenarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlmacenarCambiosActionPerformed
@@ -257,15 +258,8 @@ public class Opciones extends javax.swing.JFrame {
         resultados[3]=eleccion4.getSelectedItem();
         PantallaPrincipal pp=new PantallaPrincipal();
         pp.setResultadosEnInterfaz(resultados);
+        dispose();
     }//GEN-LAST:event_AlmacenarCambiosActionPerformed
-
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Opciones().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AlmacenarCambios;

@@ -374,14 +374,6 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]){
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run(){
-                new Interfaz().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel tablero;
     // End of variables declaration//GEN-END:variables
