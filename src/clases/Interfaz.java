@@ -46,50 +46,15 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
     Color colorTrofeo1=new java.awt.Color(46, 154, 254);
     Color colorTrofeo2=Color.blue;
 
-    // Constructor de la clase Interfaz
-    public Interfaz() {
-        colorFondo=new java.awt.Color(204, 255, 204);
-        colorSerpiente=new java.awt.Color(254, 46, 46);
-        colorTrofeo1=new java.awt.Color(46, 154, 254);
-        colorTrofeo2=Color.blue;
-        initComponents();
-        addKeyListener(this);
-        // Creamos el tablero
-        tablero.setLayout(new GridLayout(numFilas,numColumnas));
-        tablero.setBackground(colorFondo);
-        panelPuntuacion=new Puntuacion();
-        panelPuntuacion.setVisible(true);
-        panelPuntuacion.setBounds(460, 30, 170, 270);
-        // Con este for le damos sus propiedades estéticas
-        for(int i=0; i<numFilas; i++){
-            for(int j=0; j<numColumnas; j++){
-                JPanel panel=new JPanel();
-                panel.setBackground(colorFondo);
-                panel.setBorder(javax.swing.BorderFactory.createLineBorder(colorFondo));
-                panel.setPreferredSize( new Dimension(tablero.getWidth()/numColumnas,tablero.getHeight()/numFilas));
-                tablero.add(panel);
-                arraypanel[i][j]=panel;
-            }
-        }
-        // Creamos la serpiente y la posicionamos en la parte superior izquierda
-        Serpiente serp=new Serpiente(arraypanel[5][5],5,5);
-        /* Añadimos el primer "bloque" de la serpiente al lanzar el tablero. Este ArrayList de Serpiente se irá incrementando
-        a medida que consumamos premios */
-        arraySerpiente.add(serp);
-        arraySerpiente.get(0).panelC.setBackground(colorSerpiente);
-        // Controlamos si la serpiente se sale de los límites del tablero
-        ActualizaTablero actualiza=new ActualizaTablero();
-        actualiza.start();
-        // Controlamos el choque de la serpiente consigo misma
-        Chocar choque=new Chocar();
-        choque.start();
-        // Lanzamos añadir puntos, que ampliará el tamaño de la serpiente cada vez que se "coma" un punto verde
-        AñadePuntos ap=new AñadePuntos();
-        ap.start();
-    }
-
     public Interfaz(String[] resultados) {
-        setResultados(resultados);
+        if (resultados.length!=1)
+            setResultados(resultados);
+        else{
+            colorFondo=new java.awt.Color(204, 255, 204);
+            colorSerpiente=new java.awt.Color(254, 46, 46);
+            colorTrofeo1=new java.awt.Color(46, 154, 254);
+            colorTrofeo2=Color.blue;
+        }
         initComponents();
         addKeyListener(this);
         // Creamos el tablero
@@ -184,7 +149,7 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
         }
     }
 
-    public void setResultados(String[] resultados){
+    private void setResultados(String[] resultados){
         switch(resultados[0]){
             case ("Azul verdoso"):
                 colorFondo=new java.awt.Color(46, 254, 200);
