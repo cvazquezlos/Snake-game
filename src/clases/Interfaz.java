@@ -47,8 +47,10 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
     Color colorTrofeo2=Color.blue;
 
     public Interfaz(String[] resultados) {
+        // Si resultados tiene valor (se han configurado los cambios), los aplicamos
         if (resultados.length!=1)
             setResultados(resultados);
+        // Si no se han producido cambios, entonces ejecutamos el escenario por defecto
         else{
             colorFondo=new java.awt.Color(204, 255, 204);
             colorSerpiente=new java.awt.Color(254, 46, 46);
@@ -149,6 +151,7 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
         }
     }
 
+    // Permite transferir los cambios del menú de opciones gráficas al juego
     private void setResultados(String[] resultados){
         switch(resultados[0]){
             case ("Azul verdoso"):
