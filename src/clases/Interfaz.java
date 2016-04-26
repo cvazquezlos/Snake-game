@@ -15,12 +15,12 @@ import java.util.logging.Logger;
 public class Interfaz extends javax.swing.JFrame implements KeyListener{
 
     // Tamaño del tablero de juego
-    final int numFilas=30;
-    final int numColumnas=30;
+    int numFilas;
+    int numColumnas;
     // Panel de los trofeos que se colocan en posiciones aleatorias
     JPanel trofeo=new JPanel();
     JPanel trofeo1=new JPanel();
-    JPanel[][] arraypanel=new JPanel[numFilas][numColumnas];
+    JPanel[][] arraypanel;
     // Como el snake debe lanzarse con la serpiente estática, entonces dirección vale 0
     int direccion=0;
     // Como dirección vale 0, entonces la última dirección la inicializamos a 0
@@ -48,14 +48,21 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
 
     public Interfaz(String[] resultados) {
         // Si resultados tiene valor (se han configurado los cambios), los aplicamos
-        if (resultados.length!=1)
+        if (resultados.length!=1){
             setResultados(resultados);
+            arraypanel=new JPanel[numFilas][numColumnas];
+            Dimension d=new Dimension(numFilas*15, numColumnas*15);
+            // Queda la dimensión
+        }
         // Si no se han producido cambios, entonces ejecutamos el escenario por defecto
         else{
             colorFondo=new java.awt.Color(204, 255, 204);
             colorSerpiente=new java.awt.Color(254, 46, 46);
             colorTrofeo1=new java.awt.Color(46, 154, 254);
             colorTrofeo2=Color.blue;
+            numFilas=30;
+            numColumnas=30;
+            arraypanel=new JPanel[numFilas][numColumnas];
         }
         initComponents();
         addKeyListener(this);
@@ -199,6 +206,7 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
                 break;
             case ("Gris"):
                 colorTrofeo1=Color.gray;
+                break;
         }
         switch(resultados[3]){
             case ("Naranja"):
@@ -212,6 +220,37 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
                 break;
             case ("Gris"):
                 colorTrofeo2=Color.gray;
+                break;
+        }
+        switch(resultados[4]){
+            case ("20x20"):
+                numFilas=20;
+                numColumnas=20;
+                break;
+            case ("25x25"):
+                numFilas=25;
+                numColumnas=25;
+                break;
+            case ("30x30"):
+                numFilas=30;
+                numColumnas=30;
+                break;
+            case ("35x35"):
+                numFilas=35;
+                numColumnas=35;
+                break;
+            case ("40x40"):
+                numFilas=40;
+                numColumnas=40;
+                break;
+            case ("50x50"):
+                numFilas=50;
+                numColumnas=50;
+                break;
+            case ("60x60"):
+                numFilas=60;
+                numColumnas=60;
+                break;
         }
     }
 
@@ -306,6 +345,7 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 153, 153));
         setBounds(new java.awt.Rectangle(0, 0, 450, 500));
+        setPreferredSize(null);
 
         tablero.setBackground(new java.awt.Color(255, 255, 255));
         tablero.setForeground(new java.awt.Color(255, 255, 255));
