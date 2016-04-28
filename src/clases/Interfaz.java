@@ -41,18 +41,20 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
     private ArrayList<Serpiente> arraySerpiente=new ArrayList<Serpiente>();
     // Posición de los dos trofeos
     int posX=0, posY=0, posX1=0, posY1=0;
+    int tiempo1=0, tiempo2=0;
     Color colorFondo=new java.awt.Color(204, 255, 204);
     Color colorSerpiente=new java.awt.Color(254, 46, 46);
     Color colorTrofeo1=new java.awt.Color(46, 154, 254);
     Color colorTrofeo2=Color.blue;
 
     public Interfaz(String[] resultados) {
+        initComponents();
         // Si resultados tiene valor (se han configurado los cambios), los aplicamos
         if (resultados.length!=1){
             setResultados(resultados);
             arraypanel=new JPanel[numFilas][numColumnas];
             Dimension d=new Dimension(numFilas*15, numColumnas*15);
-            // Queda la dimensión
+            this.setSize(d);
         }
         // Si no se han producido cambios, entonces ejecutamos el escenario por defecto
         else{
@@ -64,14 +66,13 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
             numColumnas=30;
             arraypanel=new JPanel[numFilas][numColumnas];
         }
-        initComponents();
         addKeyListener(this);
         // Creamos el tablero
         tablero.setLayout(new GridLayout(numFilas,numColumnas));
         tablero.setBackground(colorFondo);
         panelPuntuacion=new Puntuacion();
         panelPuntuacion.setVisible(true);
-        panelPuntuacion.setBounds(460, 30, 170, 270);
+        panelPuntuacion.setBounds((numFilas*16)-numFilas, 30, 170, 270);
         // Con este for le damos sus propiedades estéticas
         for(int i=0; i<numFilas; i++){
             for(int j=0; j<numColumnas; j++){
@@ -156,6 +157,10 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
                 vel+=10;
                 break;
         }
+    }
+
+    public int getX(){
+        return numFilas;
     }
 
     // Permite transferir los cambios del menú de opciones gráficas al juego
@@ -286,6 +291,12 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
         else return false;
     }
 
+    public boolean esTiempoConsumido(int i){
+        if (i<100)
+            return true;
+        return false;
+    }
+
     // Método que permite desplazar a la serpiente por el frame
     public void actualizaPosicion(){
         Serpiente serp;
@@ -346,6 +357,7 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
         setBackground(new java.awt.Color(255, 153, 153));
         setBounds(new java.awt.Rectangle(0, 0, 450, 500));
         setPreferredSize(null);
+        setResizable(false);
 
         tablero.setBackground(new java.awt.Color(255, 255, 255));
         tablero.setForeground(new java.awt.Color(255, 255, 255));
@@ -398,6 +410,19 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
                 try {
                     // Suspende el subproceso durante la velocidad indicada
                     Thread.sleep(vel);
+                    tiempo1-=50;
+                    tiempo2-=50;
+                    if (esTiempoConsumido(tiempo1)){
+                        trofeo.setBackground(colorFondo);
+                        posicionTrofeo=false;
+                        tiempo1=0;
+                    }
+                    if (esTiempoConsumido(tiempo2)){
+                        trofeo1.setBackground(colorFondo);
+                        posicionTrofeo1=false;
+                        tiempo2=0;
+                    }
+
                     // Llamamos a actualizar la posición de la serpiente
                     actualizaPosicion();
                 } catch (Exception ex) {
@@ -465,6 +490,8 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
                             posX1=(int) (Math.random()*numFilas+1);
                             posY=(int) (Math.random()*numFilas+1);
                             posY1=(int) (Math.random()*numFilas+1);
+                            tiempo1=(int) (Math.random()*(10000-1000)+1000);
+                            tiempo2=(int) (Math.random()*(10000-1000)+1000);
                             // Si alguna coordenada del trofeo 1 coincide con la del 2, se genera otra
                             if ((posX==posX1)||(posY==posY1))
                                 posX1=(int) (Math.random()*numFilas+1);
@@ -474,6 +501,7 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
                             // Generamos las coordenadas aleatorias de su posicionamiento
                             posX=(int) (Math.random()*numFilas+1);
                             posY=(int) (Math.random()*numFilas+1);
+                            tiempo1=(int) (Math.random()*(10000-1000)+1000);
                             // Nuevamente aplicamos la comprobación de que son diferentes a las del trofeo 2
                             if ((posX==posX1)||(posY==posY1))
                                 posX=(int) (Math.random()*numFilas+1);
@@ -487,6 +515,7 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
                         } else {
                             posX1=(int) (Math.random()*numFilas+1);
                             posY1=(int) (Math.random()*numFilas+1);
+                            tiempo2=(int) (Math.random()*(10000-1000)+1000);
                             // Aplicamos la comprobación de que las coordenadas diferen del trofeo 1
                             if ((posX1==posX)||(posY1==posY))
                                 posX1=(int) (Math.random()*numFilas+1);

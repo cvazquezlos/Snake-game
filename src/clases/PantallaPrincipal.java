@@ -4,7 +4,10 @@ Hecha por: Carlos Vázquez Losada
 ----------------------------------------*/
 package clases;
 
-public class PantallaPrincipal extends javax.swing.JFrame {
+import java.util.Observable;
+import java.util.Observer;
+
+public class PantallaPrincipal extends javax.swing.JFrame implements Observer{
 
     String[] resultados;
 
@@ -198,6 +201,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         Interfaz interfaz=new Interfaz(resultados);
         interfaz.setVisible(true);
         this.setVisible(false);
+        Interfaz interfaz1=new Interfaz(resultados);
+        interfaz1.setVisible(true);
+        interfaz1.setLocation(interfaz.getX()*20, 0);
     }//GEN-LAST:event_solojugadorActionPerformed
 
     private void botonInstruccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInstruccionesActionPerformed
@@ -245,4 +251,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton ranking;
     private javax.swing.JButton solojugador;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
