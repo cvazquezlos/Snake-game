@@ -4,14 +4,7 @@ Hecha por: Carlos Vázquez Losada
 ----------------------------------------*/
 package clases;
 
-<<<<<<< HEAD
 public class PantallaPrincipal extends javax.swing.JFrame{
-=======
-import java.util.Observable;
-import java.util.Observer;
-
-public class PantallaPrincipal extends javax.swing.JFrame implements Observer{
->>>>>>> Snake-game/master
 
     String[] resultados;
 
@@ -29,11 +22,7 @@ public class PantallaPrincipal extends javax.swing.JFrame implements Observer{
         botonInstrucciones = new javax.swing.JButton();
         cerrarapp = new javax.swing.JButton();
         ranking = new javax.swing.JButton();
-<<<<<<< HEAD
         botonLanzador = new javax.swing.JButton();
-=======
-        solojugador = new javax.swing.JButton();
->>>>>>> Snake-game/master
         jLabel1 = new javax.swing.JLabel();
         jugadorvsia = new javax.swing.JButton();
         jugadorvsjugador = new javax.swing.JButton();
@@ -115,7 +104,6 @@ public class PantallaPrincipal extends javax.swing.JFrame implements Observer{
                 .addContainerGap())
         );
 
-<<<<<<< HEAD
         botonLanzador.setBackground(new java.awt.Color(51, 153, 255));
         botonLanzador.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         botonLanzador.setForeground(new java.awt.Color(255, 255, 255));
@@ -125,17 +113,6 @@ public class PantallaPrincipal extends javax.swing.JFrame implements Observer{
         botonLanzador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonLanzadorActionPerformed(evt);
-=======
-        solojugador.setBackground(new java.awt.Color(51, 153, 255));
-        solojugador.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        solojugador.setForeground(new java.awt.Color(255, 255, 255));
-        solojugador.setText("1 jugador");
-        solojugador.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 204)));
-        solojugador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        solojugador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                solojugadorActionPerformed(evt);
->>>>>>> Snake-game/master
             }
         });
 
@@ -180,11 +157,7 @@ public class PantallaPrincipal extends javax.swing.JFrame implements Observer{
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
-<<<<<<< HEAD
                 .addComponent(botonLanzador, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-=======
-                .addComponent(solojugador, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
->>>>>>> Snake-game/master
                 .addGap(97, 97, 97)
                 .addComponent(jugadorvsia, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -202,11 +175,7 @@ public class PantallaPrincipal extends javax.swing.JFrame implements Observer{
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-<<<<<<< HEAD
                     .addComponent(botonLanzador, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-=======
-                    .addComponent(solojugador, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
->>>>>>> Snake-game/master
                     .addComponent(jugadorvsia, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jugadorvsjugador, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
@@ -225,7 +194,6 @@ public class PantallaPrincipal extends javax.swing.JFrame implements Observer{
         dispose();
     }//GEN-LAST:event_opcionesActivarActionPerformed
 
-<<<<<<< HEAD
     private void botonLanzadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLanzadorActionPerformed
         Modelo modelo=new Modelo();
         Vista vista=new Vista();
@@ -234,16 +202,6 @@ public class PantallaPrincipal extends javax.swing.JFrame implements Observer{
         modelo.addObserver(vista);
         modelo.notificaCambios();
     }//GEN-LAST:event_botonLanzadorActionPerformed
-=======
-    private void solojugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solojugadorActionPerformed
-        Interfaz interfaz=new Interfaz(resultados);
-        interfaz.setVisible(true);
-        this.setVisible(false);
-        Interfaz interfaz1=new Interfaz(resultados);
-        interfaz1.setVisible(true);
-        interfaz1.setLocation(interfaz.getX()*20, 0);
-    }//GEN-LAST:event_solojugadorActionPerformed
->>>>>>> Snake-game/master
 
     private void botonInstruccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInstruccionesActionPerformed
         Instrucciones instrucciones=new Instrucciones();
@@ -279,10 +237,7 @@ public class PantallaPrincipal extends javax.swing.JFrame implements Observer{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonInstrucciones;
-<<<<<<< HEAD
     private javax.swing.JButton botonLanzador;
-=======
->>>>>>> Snake-game/master
     private javax.swing.JButton cerrarapp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -292,16 +247,6 @@ public class PantallaPrincipal extends javax.swing.JFrame implements Observer{
     private javax.swing.JButton jugadorvsjugador;
     private javax.swing.JButton opcionesActivar;
     private javax.swing.JButton ranking;
-<<<<<<< HEAD
     // End of variables declaration//GEN-END:variables
 
-=======
-    private javax.swing.JButton solojugador;
-    // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
->>>>>>> Snake-game/master
 }
