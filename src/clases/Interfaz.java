@@ -356,6 +356,10 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 153, 153));
         setBounds(new java.awt.Rectangle(0, 0, 450, 500));
+<<<<<<< HEAD
+=======
+        setPreferredSize(null);
+>>>>>>> Snake-game/master
         setResizable(false);
 
         tablero.setBackground(new java.awt.Color(255, 255, 255));
@@ -366,7 +370,11 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
         tablero.setLayout(tableroLayout);
         tableroLayout.setHorizontalGroup(
             tableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
             .addGap(0, 451, Short.MAX_VALUE)
+=======
+            .addGap(0, 450, Short.MAX_VALUE)
+>>>>>>> Snake-game/master
         );
         tableroLayout.setVerticalGroup(
             tableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,7 +387,11 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+<<<<<<< HEAD
                 .addComponent(tablero, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+=======
+                .addComponent(tablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+>>>>>>> Snake-game/master
                 .addContainerGap())
         );
         layout.setVerticalGroup(
