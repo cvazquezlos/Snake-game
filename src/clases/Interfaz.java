@@ -538,7 +538,7 @@ public class Interfaz extends javax.swing.JFrame implements KeyListener{
                         switch(direccion){
                             // Se mueve hacia arriba
                             case (1):
-                                serp = new Serpiente(arraypanel[arraySerpiente.get(arraySerpiente.size()-1).altoC-1][arraySerpiente.get(arraySerpiente.size()-1).anchoC],arraySerpiente.get(arraySerpiente.size()-1).altoC-1,arraySerpiente.get(arraySerpiente.size()-1).anchoC);
+                                serp=new Serpiente(arraypanel[arraySerpiente.get(arraySerpiente.size()-1).altoC-1][arraySerpiente.get(arraySerpiente.size()-1).anchoC],arraySerpiente.get(arraySerpiente.size()-1).altoC-1,arraySerpiente.get(arraySerpiente.size()-1).anchoC);
                                 serp.panelC.setBackground(colorSerpiente);
                                 arraySerpiente.add(serp);
                                 break;

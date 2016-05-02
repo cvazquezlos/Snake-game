@@ -1,10 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/***********************************************************************************
+******************* PRÁCTICA FINAL METODOLOGÍA DE LA PROGRAMACIÓN ******************
+******************** Carlos Vázquez Losada y Jorge Galindo Peña ********************
+************************************************************************************/
 package clases;
 
+/******************************* PAQUETES IMPORTADOS *******************************/
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -12,16 +12,23 @@ import java.awt.event.KeyListener;
 
 public class Controlador implements KeyListener{
 
-    Modelo modelo;
+    private Modelo modelo;
     private int ultimaDir, direccion, direccionAnterior, velocidad;
 
-    public Controlador(Modelo modelo, Vista vista){
+    public Controlador(Modelo modelo, VistaTablero vista){
         this.modelo=modelo;
         ultimaDir=0;
         direccion=0;
         direccionAnterior=0;
         velocidad=90;
+        // Añadimos nuestra vista como interfaz del controlador
         vista.addKeyListener(this);
+    }
+
+    // Método que recibe dos parámetros necesarios del modelo al que modifica
+    public void setUltimasDirecciones(int ultimaDir, int direccionAnterior){
+        this.ultimaDir=ultimaDir;
+        this.direccionAnterior=direccionAnterior;
     }
 
     @Override
@@ -34,38 +41,43 @@ public class Controlador implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
+        // Actualizamos las últimas direcciones para conocer, en concreto, ultimaDir y direccionAnterior,
+        // que nos servirán para evitar que si anteriormente se ha pulsado la tecla hacia arriba, no se
+        // pulse la tecla hacia abajo (este movimiento no está permitido en la serpiente), se deberá pulsar
+        // antes a alguna tecla de los lados, y lo mismo sucede con las teclas de giro
+        setUltimasDirecciones(modelo.getUltimaDir(), modelo.getDireccionAnterior());
         switch(e.getKeyCode()){
             // Pulsamos hacia arriba
             case (KeyEvent.VK_UP):
                 // Si pulsamos hacia arriba, no podemos pulsar hacia abajo, debemos girar antes
                 if (ultimaDir!=2)
                     direccion=1;
-                modelo.insertarDirecciones(direccion, ultimaDir, direccionAnterior);
-                modelo.notificaCambios();
+                // Modificamos el modelo para mostrar el movimiento por la vista
+                modelo.setDirecciones(direccion, ultimaDir, direccionAnterior);
                 break;
             // Pulsamos hacia abajo
             case (KeyEvent.VK_DOWN):
                 // Si pulsamos hacia abajo, no podemos pulsar hacia arriba, debemos girar antes
                 if (ultimaDir!=1)
                     direccion=2;
-                modelo.insertarDirecciones(direccion, ultimaDir, direccionAnterior);
-                modelo.notificaCambios();
+                // Modificamos el modelo para mostrar el movimiento por la vista
+                modelo.setDirecciones(direccion, ultimaDir, direccionAnterior);
                 break;
             // Pulsamos hacia la izquierda
             case (KeyEvent.VK_LEFT):
                 // Si pulsamos hacia la izquierda, debemos ir hacia arriba o hacia abajo antes de girar hacia la derecha
                 if (ultimaDir!=4)
                     direccion=3;
-                modelo.insertarDirecciones(direccion, ultimaDir, direccionAnterior);
-                modelo.notificaCambios();
+                // Modificamos el modelo para mostrar el movimiento por la vista
+                modelo.setDirecciones(direccion, ultimaDir, direccionAnterior);
                 break;
             // Pulsamos hacia la derecha
             case (KeyEvent.VK_RIGHT):
                 // Si pulsamos hacia la derecha, debemos ir hacia arriba o hacia abajo antes de girar hacia la izquierda
                 if (ultimaDir!=3)
                     direccion=4;
-                modelo.insertarDirecciones(direccion, ultimaDir, direccionAnterior);
-                modelo.notificaCambios();
+                // Modificamos el modelo para mostrar el movimiento por la vista
+                modelo.setDirecciones(direccion, ultimaDir, direccionAnterior);
                 break;
             // Pulsamos P
             case (KeyEvent.VK_P):
@@ -77,22 +89,22 @@ public class Controlador implements KeyListener{
                 // Si ya se había pausado el juego, lo reanuda
                 else
                     direccion=direccionAnterior;
-                modelo.insertarDirecciones(direccion, ultimaDir, direccionAnterior);
-                modelo.notificaCambios();
+                // Modificamos el modelo para parar el juego en la vista, o para reanudarlo si previamente se ha parado
+                modelo.setDirecciones(direccion, ultimaDir, direccionAnterior);
                 break;
             // Pulsamos la tecla + (del teclado numérico)
             case (KeyEvent.VK_ADD):
                 // La velocidad incrementa en 10 unidades (drecementa el número de píxeles necesarios para recorrer una unidad)
                 velocidad-=10;
-                modelo.actualizaVelocidad(velocidad);
-                modelo.notificaCambios();
+                // Modificamos el modelo para incrementar la velocidad en la vista
+                modelo.setVelocidad(velocidad);
                 break;
             // Pulsamos la tecla + (del teclado numérico)
             case (KeyEvent.VK_SUBTRACT):
                 // La velocidad decrementa en 10 unidades (incrementa el número de píxeles necesarios para recorrer una unidad)
                 velocidad+=10;
-                modelo.actualizaVelocidad(velocidad);
-                modelo.notificaCambios();
+                // Modificamos el modelo para decrementar la velocidad en la vista
+                modelo.setVelocidad(velocidad);
                 break;
         }
     }

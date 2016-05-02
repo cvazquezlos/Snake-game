@@ -4,15 +4,12 @@
 ************************************************************************************/
 package clases;
 
-import javax.swing.JPanel;
-
-public class Serpiente {
-
+public class Trofeo {
     private int colocacionX, colocacionY;
 
-    public Serpiente(int colocacionX, int colocacionY){
-        this.colocacionX=colocacionX;
-        this.colocacionY=colocacionY;
+    public Trofeo(){
+        colocacionX=0;
+        colocacionY=0;
     }
 
     public int getColocacionX(){
@@ -23,11 +20,11 @@ public class Serpiente {
         return colocacionY;
     }
 
-    public void setColocacionY(int colocacionY){
-        this.colocacionY=colocacionY;
-    }
-
     public void setColocacionX(int colocacionX){
         this.colocacionX=colocacionX;
+    }
+
+    public void setColocacionY(int colocacionY){
+        this.colocacionY=colocacionY;
     }
 }

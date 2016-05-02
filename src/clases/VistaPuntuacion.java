@@ -1,9 +1,11 @@
-/*----------------------------------------
-Práctica de Metodología de la Programación
-Hecha por: Carlos Vázquez Losada
-----------------------------------------*/
+/***********************************************************************************
+******************* PRÁCTICA FINAL METODOLOGÍA DE LA PROGRAMACIÓN ******************
+******************** Carlos Vázquez Losada y Jorge Galindo Peña ********************
+************************************************************************************/
 package clases;
 
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JTextField;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -11,14 +13,9 @@ import javax.swing.text.StyledDocument;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Puntuacion extends javax.swing.JFrame {
+public class VistaPuntuacion extends javax.swing.JFrame implements Observer{
 
-    private Timer timer = new Timer();
-    private int segundos=0;
-    private int minutos=0;
-    private int horas=0;
-
-    public Puntuacion() {
+    public VistaPuntuacion() {
         initComponents();
     }
 
@@ -82,35 +79,17 @@ public class Puntuacion extends javax.swing.JFrame {
         puntos.setText(puntuacion);
     }
 
-    public void activarContador(boolean valor){
-        if (valor){
-            timer = new Timer();
-            timer.schedule(new Contador(), 0, 1000);
-        } else
-            timer.cancel();
+    public void actualizarContador(String tiempo){
+        contador.setText(tiempo);
     }
 
-    class Contador extends TimerTask {
-        public void run() {
-            segundos++;
-            if (segundos==60){
-                minutos++;
-                segundos=0;
-            }
-            if (minutos==60){
-                horas++;
-                minutos=0;
-            }
-            // Cambios estéticos, para que los números aparezcan con dos cifras.
-            String segundo=Integer.toString(segundos);
-            if (segundo.length()==1) segundo="0"+Integer.toString(segundos);
-            String minuto=Integer.toString(minutos);
-            if (minuto.length()==1) minuto="0"+Integer.toString(minutos);
-            String hora=Integer.toString(horas);
-            if (hora.length()==1) hora="0"+Integer.toString(horas);
-            contador.setText(hora+":"+minuto+":"+segundo);
-        }
+    @Override
+    public void update(Observable o, Object o1) {
+        Modelo modelo=(Modelo) o;
+        actualizarContador(modelo.getTiempo());
+        actualizarPuntos(modelo.getPuntos());
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel contador;
     private javax.swing.JLabel jLabel2;

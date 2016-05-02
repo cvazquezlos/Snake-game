@@ -1,18 +1,37 @@
-/*----------------------------------------
-Práctica de Metodología de la Programación
-Hecha por: Carlos Vázquez Losada
-----------------------------------------*/
+/***********************************************************************************
+******************* PRÁCTICA FINAL METODOLOGÍA DE LA PROGRAMACIÓN ******************
+******************** Carlos Vázquez Losada y Jorge Galindo Peña ********************
+************************************************************************************/
 package clases;
 
+/************************** CLASE DEL OBJETO "LANZADOR". ***************************
+Esta clase permite lanzar el modelo observado (Modelo.java), las vistas que lo obser-
+van (VistaTablero.java y VistaPuntuacion.java) y el controlador (Controlador.java),
+implementando así el patrón Observer y el MVC.
+************************************************************************************/
 public class PantallaPrincipal extends javax.swing.JFrame{
 
-    String[] resultados;
+    /***************************** ATRIBUTOS DE CLASE. *****************************
+    Tienen acceso privado para facilitar el encapsulamiento. Para acceder a su con-
+    tenido emplearemos los métodos get y set.
+    ********************************************************************************/
+    private String[] resultados;
+    // Boolean que se activan si el juego es contra la IA o contra otro jugador
+    private String IA, comp, indiv;
 
+    /*************************** CONSTRUCTOR DE LA CLASE. **************************
+    Inicializa el JFrame del que hereda y además el String de Resultados (por si no
+    se introducen cambios procedentes de las opciones gráficas.
+    ********************************************************************************/
     public PantallaPrincipal() {
         initComponents();
         resultados=new String[1];
+        indiv="0";
+        IA="1";
+        comp="2";
     }
 
+    // Código generado automáticamente por el IDE empleado: NetBeans
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -84,23 +103,26 @@ public class PantallaPrincipal extends javax.swing.JFrame{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(opcionesActivar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(botonInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
+                .addComponent(botonInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(ranking, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addComponent(cerrarapp, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(cerrarapp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ranking, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(opcionesActivar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botonInstrucciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(ranking, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonInstrucciones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(opcionesActivar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(cerrarapp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -187,6 +209,11 @@ public class PantallaPrincipal extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /****************************** MÉTODOS DE CLASE. ******************************
+    Agregan funcionalidades al objeto de la clase.
+    ********************************************************************************/
+    // Este método se activa al pulsar sobre el botón "Opciones gráficas", y su fun-
+    // cionalidad es la de implementar cambios sobre la vista del tablero
     private void opcionesActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesActivarActionPerformed
         Opciones opcion=new Opciones();
         opcion.setVisible(true);
@@ -194,32 +221,51 @@ public class PantallaPrincipal extends javax.swing.JFrame{
         dispose();
     }//GEN-LAST:event_opcionesActivarActionPerformed
 
+    // Método lanzador del modelo Observer y MVC para un solo jugador. Se activa pul-
+    // sando el botón "1 jugador"
     private void botonLanzadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLanzadorActionPerformed
-        Modelo modelo=new Modelo();
-        Vista vista=new Vista();
+        Modelo modelo=new Modelo(resultados, indiv);
+        VistaTablero vista=new VistaTablero(modelo);
         vista.setVisible(true);
+        VistaPuntuacion puntuacion=new VistaPuntuacion();
+        puntuacion.setVisible(true);
         Controlador controlador=new Controlador(modelo, vista);
         modelo.addObserver(vista);
+        modelo.addObserver(puntuacion);
         modelo.notificaCambios();
     }//GEN-LAST:event_botonLanzadorActionPerformed
 
+    // Se activa pulsando el botón "Instrucciones del juego". Lanza la ventana de
+    // instrucciones
     private void botonInstruccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInstruccionesActionPerformed
         Instrucciones instrucciones=new Instrucciones();
         instrucciones.setVisible(true);
         dispose();
     }//GEN-LAST:event_botonInstruccionesActionPerformed
 
-    private void jugadorvsiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugadorvsiaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jugadorvsiaActionPerformed
-
+    // Cierra la aplicación si se pulsa el botón "Cerrar aplicación"
     private void cerrarappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarappActionPerformed
         System.exit(0);
     }//GEN-LAST:event_cerrarappActionPerformed
 
+    // Lanza el ranking
     private void rankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rankingActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rankingActionPerformed
+
+    // Método lanzador de un jugador contra la máquina. Lanza un modelo (Modelo.java),
+    // y sus vistas asociadas. La serpiente funciona de manera automática
+    private void jugadorvsiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugadorvsiaActionPerformed
+        Modelo modelo=new Modelo(resultados, IA);
+        VistaTablero vista=new VistaTablero(modelo);
+        vista.setVisible(true);
+        VistaPuntuacion puntuacion=new VistaPuntuacion();
+        puntuacion.setVisible(true);
+        Controlador controlador=new Controlador(modelo, vista);
+        modelo.addObserver(vista);
+        modelo.addObserver(puntuacion);
+        modelo.notificaCambios();
+    }//GEN-LAST:event_jugadorvsiaActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

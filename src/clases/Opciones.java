@@ -20,12 +20,13 @@ public class Opciones extends javax.swing.JFrame {
         eleccion2.add("Magenta");
         eleccion2.add("Marrón");
         eleccion2.add("Blanco");
-        // Elección del color del trofeo 1
-        eleccion3.add("Naranja");
-        eleccion3.add("Verde oscuro");
-        eleccion3.add("Amarillo");
-        eleccion3.add("Gris");
-        // Elección del color del trofeo 2
+        // Elección del número de trofeos
+        eleccion3.add("2");
+        eleccion3.add("3");
+        eleccion3.add("4");
+        eleccion3.add("5");
+        eleccion3.add("6");
+        // Elección del color del trofeo
         eleccion4.add("Naranja");
         eleccion4.add("Verde oscuro");
         eleccion4.add("Amarillo");
@@ -126,7 +127,7 @@ public class Opciones extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Color del trofeo 1");
+        jLabel3.setText("Número de trofeos");
 
         javax.swing.GroupLayout panelColorTrofeo1Layout = new javax.swing.GroupLayout(panelColorTrofeo1);
         panelColorTrofeo1.setLayout(panelColorTrofeo1Layout);
@@ -151,7 +152,7 @@ public class Opciones extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Color del trofeo 2");
+        jLabel4.setText("Color de los trofeos");
 
         javax.swing.GroupLayout panelColorTrofeo2Layout = new javax.swing.GroupLayout(panelColorTrofeo2);
         panelColorTrofeo2.setLayout(panelColorTrofeo2Layout);
@@ -294,7 +295,7 @@ public class Opciones extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(AlmacenarCambios, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
