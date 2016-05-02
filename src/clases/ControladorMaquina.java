@@ -18,7 +18,6 @@ public class ControladorMaquina extends Thread{
         this.modelo=modelo;
         ultimaDir=0;
         direccion=0;
-        velocidad=90;
     }
 
     public void getDatos(ArrayList<Serpiente> serpienteIA, int posicionX, int posicionY){
@@ -34,18 +33,31 @@ public class ControladorMaquina extends Thread{
                 this.getDatos(modelo.getSerpienteIA(), modelo.getPosicionX(), modelo.getPosicionY());
                 int diferenciaX=(serpienteIA.get(0).getColocacionX()-posicionX);
                 int diferenciaY=(serpienteIA.get(0).getColocacionY()-posicionY);
-                if (Math.abs(diferenciaX)>Math.abs(diferenciaY))
-                    if (diferenciaX>0)
-                        direccion=1;
+                if (diferenciaX==0||diferenciaY==0){
+                    if (diferenciaX==0)
+                        if (diferenciaY>0)
+                            direccion=3;
+                        else
+                            direccion=4;
+                    else if (diferenciaY==0)
+                        if (diferenciaX>0)
+                            direccion=1;
+                        else
+                            direccion=2;
+                } else {
+                    if (Math.abs(diferenciaX)>Math.abs(diferenciaY))
+                        if (diferenciaY>0)
+                            direccion=3;
+                        else
+                            direccion=4;
                     else
-                        direccion=2;
-                else
-                    if (diferenciaY>0)
-                        direccion=3;
-                    else
-                        direccion=4;
+                        if (diferenciaX>0)
+                            direccion=1;
+                        else
+                            direccion=2;
+                }
                 modelo.setDireccionesIA(direccion, ultimaDir);
-                Thread.sleep(2);
+                Thread.sleep(velocidad);
             } catch (Exception ex){}
         }
     }

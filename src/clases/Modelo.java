@@ -319,13 +319,13 @@ public class Modelo extends Observable{
     private void generaPosiciones(int i){
         if (trofeosComidos[i]){
             trofeos[i]=new Trofeo();
-            int a=(int) (Math.random()*numFilasVista-1);
-            int b=(int) (Math.random()*numColumnasVista-1);
+            int a=(int) (Math.random()*((numFilasVista-2)-1)+1);
+            int b=(int) (Math.random()*((numColumnasVista-2)-1)+1);
             // Añadimos esta primera condición porque si nada más inicializarlo se lanza este método, no se
             // ejecuta correctamente debido a que parte de los trofeos todavía apuntan a null
             if (i!=0)
                 if (esPosicionRepetida(a))
-                    a=(int) (Math.random()*numFilasVista-1);
+                    a=(int) (Math.random()*((numFilasVista-2)-1)+1);
             do {
                 trofeos[i].setColocacionX(a);
                 trofeos[i].setColocacionY(b);
@@ -337,7 +337,8 @@ public class Modelo extends Observable{
     // Impide que un trofeo se coloque en una posición donde se encuentra la serpiente
     private boolean trofeoPisado(int indice){
         for (int i=0; i<serpiente.size(); i++){
-            if ((trofeos[indice].getColocacionX()==serpiente.get(i).getColocacionX())&&(trofeos[indice].getColocacionY()==serpiente.get(i).getColocacionY()))
+            if ((trofeos[indice].getColocacionX()==serpiente.get(i).getColocacionX())&&
+                    (trofeos[indice].getColocacionY()==serpiente.get(i).getColocacionY()))
                 return true;
         }
         return false;
@@ -354,7 +355,14 @@ public class Modelo extends Observable{
 
     // Si el trofeo ha sido comido (la serpiente está sobre él) devuelve true
     public boolean esTrofeoComido(Trofeo trofeo){
-        return ((trofeo.getColocacionX()==serpiente.get(serpiente.size()-1).getColocacionX())&&(trofeo.getColocacionY()==serpiente.get(serpiente.size()-1).getColocacionY()));
+        return ((trofeo.getColocacionX()==serpiente.get(serpiente.size()-1).getColocacionX())&&
+                (trofeo.getColocacionY()==serpiente.get(serpiente.size()-1).getColocacionY()));
+    }
+
+    // Si el trofeo ha sido comido (la serpiente está sobre él) devuelve true
+    public boolean esTrofeoComidoIA(Trofeo trofeo){
+        return ((trofeo.getColocacionX()==serpienteIA.get(serpienteIA.size()-1).getColocacionX())&&
+                (trofeo.getColocacionY()==serpienteIA.get(serpienteIA.size()-1).getColocacionY()));
     }
 
     // Permite notificar a los observadores sobre los cambios en el modelo
@@ -443,18 +451,11 @@ public class Modelo extends Observable{
         notificaCambios();
     }
 
-    // Devuelve true si la serpiente de la posición i se encuentra en el mismo panel que alguna otra serpiente
-    private boolean coordenadasCoincidentes(Serpiente serp, int posSerpiente){
-        for (int i=0; i<serpiente.size(); i++)
-            if ((i!=posSerpiente)&&(serp.getColocacionX()==serpiente.get(i).getColocacionX())&&(serp.getColocacionY()==serpiente.get(i).getColocacionY()))
-                return true;
-        return false;
-    }
-
     // Detecta si la serpiente se choca consigo misma
     public boolean chocar(){
-        for (int i=0; i<serpiente.size()-1; i++){
-            if (coordenadasCoincidentes(serpiente.get(i), i))
+        for (int i=1; i<serpiente.size(); i++){
+            if ((serpiente.get(0).getColocacionX()==serpiente.get(i).getColocacionX())&&
+                    (serpiente.get(0).getColocacionY()==serpiente.get(i).getColocacionY()))
                 return true;
         }
         return false;
@@ -533,8 +534,30 @@ public class Modelo extends Observable{
                             puntos=(Integer.toString((serpiente.size()-1)*10));
                             trofeosComidos[i]=true;
                             generaPosiciones(i);
+                        } else if (esTrofeoComidoIA(trofeos[i])){
+                            Serpiente serp;
+                            switch (direccionIA){
+                                case (1):
+                                    serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()-1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
+                                    serpienteIA.add(serp);
+                                    break;
+                                case (2):
+                                    serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()+1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
+                                    serpienteIA.add(serp);
+                                    break;
+                                case (3):
+                                    serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()-1);
+                                    serpienteIA.add(serp);
+                                    break;
+                                case (4):
+                                    serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()+1);
+                                    serpienteIA.add(serp);
+                                    break;
+                            }
+                            puntos=(Integer.toString((serpienteIA.size()-1)*10));
+                            trofeosComidos[i]=true;
+                            generaPosiciones(i);
                         }
-
                     }
                     Thread.sleep(velocidad);
                 }catch (Exception ex){}

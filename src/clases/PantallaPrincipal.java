@@ -225,10 +225,10 @@ public class PantallaPrincipal extends javax.swing.JFrame{
     // sando el botón "1 jugador"
     private void botonLanzadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLanzadorActionPerformed
         Modelo modelo=new Modelo(resultados, indiv);
+        VistaPuntuacion puntuacion=new VistaPuntuacion("Jugador 1");
+        puntuacion.setVisible(true);
         VistaTablero vista=new VistaTablero(modelo);
         vista.setVisible(true);
-        VistaPuntuacion puntuacion=new VistaPuntuacion();
-        puntuacion.setVisible(true);
         Controlador controlador=new Controlador(modelo, vista);
         modelo.addObserver(vista);
         modelo.addObserver(puntuacion);
@@ -259,11 +259,16 @@ public class PantallaPrincipal extends javax.swing.JFrame{
         Modelo modelo=new Modelo(resultados, IA);
         VistaTablero vista=new VistaTablero(modelo);
         vista.setVisible(true);
-        VistaPuntuacion puntuacion=new VistaPuntuacion();
+        VistaPuntuacion puntuacion=new VistaPuntuacion("Jugador 1");
+        VistaPuntuacion puntuacionIA=new VistaPuntuacion("Jugador IA");
+        puntuacionIA.setVisible(true);
         puntuacion.setVisible(true);
+        puntuacionIA.setBounds((modelo.getCols()*15)-(modelo.getCols()/3)+150, 40, 165, 270);
+        puntuacion.setBounds((modelo.getCols()*15)-(modelo.getCols()/3), 40, 165, 270);
         Controlador controlador=new Controlador(modelo, vista);
         modelo.addObserver(vista);
         modelo.addObserver(puntuacion);
+        modelo.addObserver(puntuacionIA);
         modelo.notificaCambios();
     }//GEN-LAST:event_jugadorvsiaActionPerformed
 

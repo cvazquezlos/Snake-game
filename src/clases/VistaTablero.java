@@ -65,12 +65,11 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
         this.restablecerTablero();
         for (int i=0; i<serpiente.size(); i++)
             paneles[serpiente.get(i).getColocacionX()][serpiente.get(i).getColocacionY()].setBackground(colorSerpiente);
+        for (int i=0; i<trofeos.length; i++)
+            paneles[trofeos[i].getColocacionX()][trofeos[i].getColocacionY()].setBackground(colorTrofeo);
         if (valor=="1")
             for (int i=0; i<serpienteIA.size(); i++)
-                paneles[serpienteIA.get(i).getColocacionX()][serpienteIA.get(i).getColocacionY()].setBackground(Color.yellow);
-        for (int i=0; i<trofeos.length; i++){
-            paneles[trofeos[i].getColocacionX()][trofeos[i].getColocacionY()].setBackground(colorTrofeo);
-        }
+                paneles[serpienteIA.get(i).getColocacionX()][serpienteIA.get(i).getColocacionY()].setBackground(Color.cyan);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
