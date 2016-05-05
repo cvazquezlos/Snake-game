@@ -43,6 +43,7 @@ public class Modelo extends Observable{
     defecto. Si tiene contenido, entonces el constructor se amolda al contenido.
     ********************************************************************************/
     public Modelo(String[] resultados, String valor){
+        this.valor=valor;
         /* Serpiente. El ArrayList es la estructura de datos que almacena la posición
         donde se encuentra. */
         serpiente=new ArrayList<Serpiente>();
@@ -92,7 +93,6 @@ public class Modelo extends Observable{
         // Lanzamos el método que nos permite controlar los choques de la serpiente consigo misma
         Chocar choque=new Chocar();
         choque.start();
-        this.valor=valor;
         switch (this.valor){
             case ("0"):
                 break;
@@ -355,14 +355,14 @@ public class Modelo extends Observable{
 
     // Si el trofeo ha sido comido (la serpiente está sobre él) devuelve true
     public boolean esTrofeoComido(Trofeo trofeo){
-        return ((trofeo.getColocacionX()==serpiente.get(serpiente.size()-1).getColocacionX())&&
-                (trofeo.getColocacionY()==serpiente.get(serpiente.size()-1).getColocacionY()));
+        return ((trofeo.getColocacionX()==serpiente.get(0).getColocacionX())&&
+                (trofeo.getColocacionY()==serpiente.get(0).getColocacionY()));
     }
 
     // Si el trofeo ha sido comido (la serpiente está sobre él) devuelve true
     public boolean esTrofeoComidoIA(Trofeo trofeo){
-        return ((trofeo.getColocacionX()==serpienteIA.get(serpienteIA.size()-1).getColocacionX())&&
-                (trofeo.getColocacionY()==serpienteIA.get(serpienteIA.size()-1).getColocacionY()));
+        return ((trofeo.getColocacionX()==serpienteIA.get(0).getColocacionX())&&
+                (trofeo.getColocacionY()==serpienteIA.get(0).getColocacionY()));
     }
 
     // Permite notificar a los observadores sobre los cambios en el modelo
@@ -419,7 +419,7 @@ public class Modelo extends Observable{
             // Detenemos el temporizador
             activarContador(false);
         }
-        if (valor=="1"){
+        if (this.valor=="1"){
             Serpiente serpIA;
             switch (direccionIA){
                 case (1):
@@ -453,11 +453,12 @@ public class Modelo extends Observable{
 
     // Detecta si la serpiente se choca consigo misma
     public boolean chocar(){
-        for (int i=1; i<serpiente.size(); i++){
-            if ((serpiente.get(0).getColocacionX()==serpiente.get(i).getColocacionX())&&
-                    (serpiente.get(0).getColocacionY()==serpiente.get(i).getColocacionY()))
-                return true;
-        }
+        if (serpiente.size()>1)
+            for (int i=1; i<serpiente.size(); i++){
+                if ((serpiente.get(0).getColocacionX()==serpiente.get(i).getColocacionX())&&
+                        (serpiente.get(0).getColocacionY()==serpiente.get(i).getColocacionY()))
+                    return true;
+            }
         return false;
     }
 

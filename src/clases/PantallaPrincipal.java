@@ -227,6 +227,7 @@ public class PantallaPrincipal extends javax.swing.JFrame{
         Modelo modelo=new Modelo(resultados, indiv);
         VistaPuntuacion puntuacion=new VistaPuntuacion("Jugador 1");
         puntuacion.setVisible(true);
+        puntuacion.setBounds((modelo.getCols()*15)-(modelo.getCols()/3), 40, 165, 270);
         VistaTablero vista=new VistaTablero(modelo);
         vista.setVisible(true);
         Controlador controlador=new Controlador(modelo, vista);
