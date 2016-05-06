@@ -479,52 +479,7 @@ public class Modelo extends Observable{
                     actualizaPosicion();
                     notificaCambios();
                 }catch (Exception ex){
-                    if (chocar()){
-                        direccion=0;
-                        System.out.println("Te has chocado contigo mismo.");
-                    } else {
-                        direccion=0;
-                        System.out.println("Te has salido de los límites del tablero.");
-                    }
-                    System.exit(1);
                 }
-            }
-        }
-    }
-
-    // Esta clase controla que la serpiente no sobrepase los límites del tablero
-    class ActualizaTablero extends Thread{
-        @Override
-        public void run(){
-            while(true){
-                try{
-                    // Mientras la serpiente no los sobrepase, entonces funciona
-                    Thread.sleep(velocidad);
-                    actualizaPosicion();
-                    // Como el modelo ha sido modificado, entonces necesitamos enviar estos cambios a los observadores
-                    notificaCambios();
-                } catch (Exception ex) {
-                    // Propaga el error por las clases observadoras
-                    System.out.println("Te has salido de los límites.");
-                    System.exit(1);
-                }
-            }
-        }
-    }
-
-    // Esta clase controla que la serpiente no se choque consigo misma
-    class Chocar extends Thread{
-        @Override
-        public void run(){
-            while(true){
-                try{
-                    if (chocar()){
-                        direccion=0;
-                        System.out.println("Te has chocado contigo mismo.");
-                        System.exit(1);
-                    }
-                    Thread.sleep(2);
-                } catch (Exception ex){}
             }
         }
     }
