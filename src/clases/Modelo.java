@@ -100,15 +100,12 @@ public class Modelo extends Observable{
         }
         // Lanza la generación de trofeos
         inicializaArray();
-        // Lanzamos el método que nos permite añadir los trofeos al tablero de juego y engrandar la serpiente
+        // Lanzamos la clase que nos permite controlar las acciones que provocan el fin del juego
         Funcionamiento funcionamiento=new Funcionamiento();
         funcionamiento.start();
+        // Lanzamos el método que nos permite añadir los trofeos al tablero de juego y engrandar la serpiente
         AñadePuntos puntos=new AñadePuntos();
         puntos.start();
-        /*
-        // Lanzamos el método que nos permite variar la posición de la serpiente
-        ActualizaTablero actualiza=new ActualizaTablero();
-        actualiza.start();*/
     }
 
     /*************************** MÉTODOS GETTER Y SETTER. **************************
@@ -357,13 +354,13 @@ public class Modelo extends Observable{
     }
 
     // Si el trofeo ha sido comido (la serpiente está sobre él) devuelve true
-    public boolean esTrofeoComido(Trofeo trofeo){
+    private boolean esTrofeoComido(Trofeo trofeo){
         return ((trofeo.getColocacionX()==serpiente.get(serpiente.size()-1).getColocacionX())&&
                 (trofeo.getColocacionY()==serpiente.get(serpiente.size()-1).getColocacionY()));
     }
 
     // Si el trofeo ha sido comido (la serpiente está sobre él) devuelve true
-    public boolean esTrofeoComidoIA(Trofeo trofeo){
+    private boolean esTrofeoComidoIA(Trofeo trofeo){
         return ((trofeo.getColocacionX()==serpienteIA.get(0).getColocacionX())&&
                 (trofeo.getColocacionY()==serpienteIA.get(0).getColocacionY()));
     }
@@ -375,7 +372,7 @@ public class Modelo extends Observable{
     }
 
     // Permite iniciar, detener o reanudar el contador
-    public void activarContador(boolean valor){
+    private void activarContador(boolean valor){
         if (valor){
             timer = new Timer();
             timer.schedule(new Contador(), 0, 1000);
@@ -452,16 +449,27 @@ public class Modelo extends Observable{
         }
         if (chocar()){
             System.out.println("Te has chocado contigo mismo");
-            System.exit(1);
+            serpiente.remove(serpiente.size()-1);
         }
     }
 
     // Detecta si la serpiente se choca consigo misma
-    public boolean chocar(){
+    private boolean chocar(){
         for(int i=0;i<serpiente.size()-1;i++){
             if((serpiente.get(serpiente.size()-1).getColocacionX()==serpiente.get(i).getColocacionX())&&(serpiente.get(serpiente.size()-1).getColocacionY()==serpiente.get(i).getColocacionY())) return true;
         }
         return false;
+    }
+
+    private int getTrofeoPisado(){
+        int a=-1;
+        for (int i=0; i<trofeos.length; i++){
+            if (trofeos[i].getColocacionX()==serpiente.get(0).getColocacionX()&&trofeos[i].getColocacionY()==serpiente.get(0).getColocacionY()){
+                a=i;
+                return a;
+            }
+        }
+        return a;
     }
 
     /**************** CLASES QUE CONTROLAN MOVIMIENTOS NO DESEADOS. ****************
