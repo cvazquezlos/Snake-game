@@ -450,6 +450,10 @@ public class Modelo extends Observable{
                 serpienteIA.remove(0);
             }
         }
+        if (chocar()){
+            System.out.println("Te has chocado contigo mismo");
+            System.exit(1);
+        }
     }
 
     // Detecta si la serpiente se choca consigo misma
@@ -458,11 +462,6 @@ public class Modelo extends Observable{
             if((serpiente.get(serpiente.size()-1).getColocacionX()==serpiente.get(i).getColocacionX())&&(serpiente.get(serpiente.size()-1).getColocacionY()==serpiente.get(i).getColocacionY())) return true;
         }
         return false;
-    }
-
-    public boolean salirDelTablero(){
-        return ((serpiente.get(0).getColocacionX()==0)||(serpiente.get(0).getColocacionY()==0)
-                ||(serpiente.get(0).getColocacionX()==numFilasVista)||(serpiente.get(0).getColocacionY()==numColumnasVista));
     }
 
     /**************** CLASES QUE CONTROLAN MOVIMIENTOS NO DESEADOS. ****************
@@ -479,6 +478,8 @@ public class Modelo extends Observable{
                     actualizaPosicion();
                     notificaCambios();
                 }catch (Exception ex){
+                    System.out.println("Te saliste de los límites.");
+                    System.exit(1);
                 }
             }
         }
