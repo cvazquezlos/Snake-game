@@ -82,9 +82,6 @@ public class Modelo extends Observable{
         numFilasVista=40;
         numColumnasVista=40;
         }
-        // Lanzamos el método que nos permite controlar los choques de la serpiente consigo misma
-        //Chocar choque=new Chocar();
-        //choque.start();
         switch (this.valor){
             case ("0"):
                 break;
@@ -361,8 +358,8 @@ public class Modelo extends Observable{
 
     // Si el trofeo ha sido comido (la serpiente está sobre él) devuelve true
     private boolean esTrofeoComidoIA(Trofeo trofeo){
-        return ((trofeo.getColocacionX()==serpienteIA.get(0).getColocacionX())&&
-                (trofeo.getColocacionY()==serpienteIA.get(0).getColocacionY()));
+        return ((trofeo.getColocacionX()==serpienteIA.get(serpienteIA.size()-1).getColocacionX())&&
+                (trofeo.getColocacionY()==serpienteIA.get(serpienteIA.size()-1).getColocacionY()));
     }
 
     // Permite notificar a los observadores sobre los cambios en el modelo
@@ -372,8 +369,8 @@ public class Modelo extends Observable{
     }
 
     // Permite iniciar, detener o reanudar el contador
-    private void activarContador(boolean valor){
-        if (valor){
+    private void activarContador(boolean vlr){
+        if (vlr){
             timer = new Timer();
             timer.schedule(new Contador(), 0, 1000);
         } else
@@ -419,51 +416,6 @@ public class Modelo extends Observable{
             // Detenemos el temporizador
             activarContador(false);
         }
-        if (this.valor=="1"){
-            Serpiente serpIA;
-            switch (direccionIA){
-                case (1):
-                    serpIA=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()-1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
-                    serpienteIA.add(serpIA);
-                    ultimaDirIA=1;
-                    break;
-                case (2):
-                    serpIA=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()+1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
-                    serpienteIA.add(serpIA);
-                    ultimaDirIA=2;
-                    break;
-                case (3):
-                    serpIA=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()-1);
-                    serpienteIA.add(serpIA);
-                    ultimaDirIA=3;
-                    break;
-                case (4):
-                    serpIA=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()+1);
-                    serpienteIA.add(serpIA);
-                    ultimaDirIA=4;
-                    break;
-            }
-            if (direccionIA!=0){
-                serpienteIA.remove(0);
-            }
-        }
-        if (chocar()){
-            System.out.println("Te has chocado contigo mismo");
-            serpiente.remove(serpiente.size()-1);
-        }
-    }
-
-    // Detecta si la serpiente se choca consigo misma
-    private boolean chocar(){
-        for(int i=0;i<serpiente.size()-1;i++){
-            if((serpiente.get(serpiente.size()-1).getColocacionX()==serpiente.get(i).getColocacionX())&&(serpiente.get(serpiente.size()-1).getColocacionY()==serpiente.get(i).getColocacionY())) return true;
-        }
-        return false;
-    }
-
-    public boolean salirDelTablero(){
-        return ((serpiente.get(0).getColocacionX()==0)||(serpiente.get(0).getColocacionY()==0)
-                ||(serpiente.get(0).getColocacionX()==numFilasVista)||(serpiente.get(0).getColocacionY()==numColumnasVista));
     }
 
     /**************** CLASES QUE CONTROLAN MOVIMIENTOS NO DESEADOS. ****************
@@ -479,11 +431,9 @@ public class Modelo extends Observable{
                     Thread.sleep(velocidad);
                     actualizaPosicion();
                     notificaCambios();
-                    if (salirDelTablero()){
-                        System.out.println("Te saliste de los límites");
-                        System.exit(1);
-                    }
-                }catch (Exception ex){ }
+                }catch (Exception ex){
+                    System.out.println("Te has salidod e los limites");
+                }
             }
         }
     }
@@ -497,7 +447,14 @@ public class Modelo extends Observable{
         public void run(){
             while (true){
                 try{
-                    if (esTrofeoComido(trofeos[0])){
+                    int pos=0;
+                    for (int i=0; i<trofeos.length; i++){
+                        if (esTrofeoComido(trofeos[i])){
+                            pos=i;
+                            break;
+                        }
+                    }
+                    if (esTrofeoComido(trofeos[pos])){
                         Serpiente serp;
                         switch (direccion){
                             case (1):
@@ -518,33 +475,10 @@ public class Modelo extends Observable{
                                 break;
                         }
                         puntos=(Integer.toString((serpiente.size()-1)*10));
-                        trofeosComidos[0]=true;
-                        generaPosiciones(0);
-                    } else if ((esTrofeoComidoIA(trofeos[0]))&&(valor=="1")){
-                        Serpiente serp;
-                        switch (direccionIA){
-                            case (1):
-                                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()-1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
-                                serpienteIA.add(serp);
-                                break;
-                            case (2):
-                                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()+1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
-                                serpienteIA.add(serp);
-                                break;
-                            case (3):
-                                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()-1);
-                                serpienteIA.add(serp);
-                                break;
-                            case (4):
-                                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()+1);
-                                serpienteIA.add(serp);
-                                break;
-                        }
-                        puntos=(Integer.toString((serpienteIA.size()-1)*10));
-                        trofeosComidos[0]=true;
-                        generaPosiciones(0);
+                        trofeosComidos[pos]=true;
+                        generaPosiciones(pos);
                     }
-                    Thread.sleep(velocidad*2);
+                    Thread.sleep(0);
                 }catch (Exception ex){}
             }
         }
@@ -574,4 +508,5 @@ public class Modelo extends Observable{
             tiempo=(hora+":"+minuto+":"+segundo);
         }
     }
+
 }

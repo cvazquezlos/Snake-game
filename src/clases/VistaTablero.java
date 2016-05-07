@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class VistaTablero extends javax.swing.JFrame implements Observer {
@@ -44,15 +45,15 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
             }
     }
 
-    public void setSerpiente(ArrayList<Serpiente> serpiente){
+    private void setSerpiente(ArrayList<Serpiente> serpiente){
         this.serpiente=serpiente;
     }
 
-    public void setSerpienteIA(ArrayList<Serpiente> serpienteIA){
+    private void setSerpienteIA(ArrayList<Serpiente> serpienteIA){
         this.serpienteIA=serpienteIA;
     }
 
-    public void setTrofeos(Trofeo[] trofeos){
+    private void setTrofeos(Trofeo[] trofeos){
         this.trofeos=new Trofeo[trofeos.length];
         for (int i=0; i<trofeos.length; i++){
             this.trofeos[i]=new Trofeo();
@@ -61,7 +62,16 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
         }
     }
 
-    public void dibujarElementos(String valor){
+    // Controla el choque de la serpiente consigo misma una vez ésta ha sido dibujada
+    private boolean chocar(){
+        for(int i=0;i<serpiente.size()-1;i++){
+            if (paneles[serpiente.get(serpiente.size()-1).getColocacionX()][serpiente.get(serpiente.size()-1).getColocacionY()]
+                    ==paneles[serpiente.get(i).getColocacionX()][serpiente.get(i).getColocacionY()]) return true;
+        }
+        return false;
+    }
+
+    private void dibujarElementos(String valor){
         this.restablecerTablero();
         for (int i=0; i<serpiente.size(); i++)
             paneles[serpiente.get(i).getColocacionX()][serpiente.get(i).getColocacionY()].setBackground(colorSerpiente);
@@ -70,6 +80,10 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
         if (valor=="1")
             for (int i=0; i<serpienteIA.size(); i++)
                 paneles[serpienteIA.get(i).getColocacionX()][serpienteIA.get(i).getColocacionY()].setBackground(Color.cyan);
+        if (chocar()){
+            JOptionPane.showMessageDialog(null, "Te has chocado contigo mismo.\n\nPuntuación:  "+(serpiente.size()-1)*10);
+            System.exit(1);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
