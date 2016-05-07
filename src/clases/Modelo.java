@@ -461,6 +461,11 @@ public class Modelo extends Observable{
         return false;
     }
 
+    public boolean salirDelTablero(){
+        return ((serpiente.get(0).getColocacionX()==0)||(serpiente.get(0).getColocacionY()==0)
+                ||(serpiente.get(0).getColocacionX()==numFilasVista)||(serpiente.get(0).getColocacionY()==numColumnasVista));
+    }
+
     /**************** CLASES QUE CONTROLAN MOVIMIENTOS NO DESEADOS. ****************
     Permiten controlar el correcto movimiento de la serpiente y se encuentran dentro
     del modelo, debido a que el Thread es el que permite el movimiento y posterior
@@ -474,10 +479,11 @@ public class Modelo extends Observable{
                     Thread.sleep(velocidad);
                     actualizaPosicion();
                     notificaCambios();
-                }catch (Exception ex){
-                    System.out.println("Te saliste de los límites.");
-                    System.exit(1);
-                }
+                    if (salirDelTablero()){
+                        System.out.println("Te saliste de los límites");
+                        System.exit(1);
+                    }
+                }catch (Exception ex){ }
             }
         }
     }
@@ -491,61 +497,52 @@ public class Modelo extends Observable{
         public void run(){
             while (true){
                 try{
-                    int pos=-1;
-                    for (int i=0; i<trofeos.length; i++){
-                        if (esTrofeoComido(trofeos[i])||esTrofeoComidoIA(trofeos[i])){
-                            pos=i;
-                            break;
+                    if (esTrofeoComido(trofeos[0])){
+                        Serpiente serp;
+                        switch (direccion){
+                            case (1):
+                                serp=new Serpiente(serpiente.get(serpiente.size()-1).getColocacionX()-1, serpiente.get(serpiente.size()-1).getColocacionY());
+                                serpiente.add(serp);
+                                break;
+                            case (2):
+                                serp=new Serpiente(serpiente.get(serpiente.size()-1).getColocacionX()+1, serpiente.get(serpiente.size()-1).getColocacionY());
+                                serpiente.add(serp);
+                                break;
+                            case (3):
+                                serp=new Serpiente(serpiente.get(serpiente.size()-1).getColocacionX(), serpiente.get(serpiente.size()-1).getColocacionY()-1);
+                                serpiente.add(serp);
+                                break;
+                            case (4):
+                                serp=new Serpiente(serpiente.get(serpiente.size()-1).getColocacionX(), serpiente.get(serpiente.size()-1).getColocacionY()+1);
+                                serpiente.add(serp);
+                                break;
                         }
-                    }
-                    if (pos!=-1){
-                        if (esTrofeoComido(trofeos[pos])){
-                            Serpiente serp;
-                            switch (direccion){
-                                case (1):
-                                    serp=new Serpiente(serpiente.get(serpiente.size()-1).getColocacionX()-1, serpiente.get(serpiente.size()-1).getColocacionY());
-                                    serpiente.add(serp);
-                                    break;
-                                case (2):
-                                    serp=new Serpiente(serpiente.get(serpiente.size()-1).getColocacionX()+1, serpiente.get(serpiente.size()-1).getColocacionY());
-                                    serpiente.add(serp);
-                                    break;
-                                case (3):
-                                    serp=new Serpiente(serpiente.get(serpiente.size()-1).getColocacionX(), serpiente.get(serpiente.size()-1).getColocacionY()-1);
-                                    serpiente.add(serp);
-                                    break;
-                                case (4):
-                                    serp=new Serpiente(serpiente.get(serpiente.size()-1).getColocacionX(), serpiente.get(serpiente.size()-1).getColocacionY()+1);
-                                    serpiente.add(serp);
-                                    break;
-                            }
-                            puntos=(Integer.toString((serpiente.size()-1)*10));
-                            trofeosComidos[pos]=true;
-                            generaPosiciones(pos);
-                        } else if ((esTrofeoComidoIA(trofeos[pos]))&&(valor=="1")){
-                            Serpiente serp;
-                            switch (direccionIA){
-                                case (1):
-                                    serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()-1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
-                                    serpienteIA.add(serp);
-                                    break;
-                                case (2):
-                                    serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()+1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
-                                    serpienteIA.add(serp);
-                                    break;
-                                case (3):
-                                    serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()-1);
-                                    serpienteIA.add(serp);
-                                    break;
-                                case (4):
-                                    serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()+1);
-                                    serpienteIA.add(serp);
-                                    break;
-                            }
-                            puntos=(Integer.toString((serpienteIA.size()-1)*10));
-                            trofeosComidos[pos]=true;
-                            generaPosiciones(pos);
+                        puntos=(Integer.toString((serpiente.size()-1)*10));
+                        trofeosComidos[0]=true;
+                        generaPosiciones(0);
+                    } else if ((esTrofeoComidoIA(trofeos[0]))&&(valor=="1")){
+                        Serpiente serp;
+                        switch (direccionIA){
+                            case (1):
+                                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()-1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
+                                serpienteIA.add(serp);
+                                break;
+                            case (2):
+                                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()+1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
+                                serpienteIA.add(serp);
+                                break;
+                            case (3):
+                                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()-1);
+                                serpienteIA.add(serp);
+                                break;
+                            case (4):
+                                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()+1);
+                                serpienteIA.add(serp);
+                                break;
                         }
+                        puntos=(Integer.toString((serpienteIA.size()-1)*10));
+                        trofeosComidos[0]=true;
+                        generaPosiciones(0);
                     }
                     Thread.sleep(velocidad*2);
                 }catch (Exception ex){}
