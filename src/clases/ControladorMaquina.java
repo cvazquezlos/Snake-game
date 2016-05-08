@@ -45,16 +45,17 @@ public class ControladorMaquina extends Thread{
                         else
                             direccion=2;
                 } else {
-                    if (Math.abs(diferenciaX)>Math.abs(diferenciaY))
-                        if (diferenciaY>0)
-                            direccion=3;
-                        else
-                            direccion=4;
-                    else
+                    if (Math.abs(diferenciaX)>Math.abs(diferenciaY)){
                         if (diferenciaX>0)
                             direccion=1;
                         else
                             direccion=2;
+                    }else{
+                        if (diferenciaY>0)
+                            direccion=3;
+                        else
+                            direccion=4;
+                    }
                 }
                 modelo.setDireccionesIA(direccion, ultimaDir);
                 Thread.sleep(velocidad);

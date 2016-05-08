@@ -34,7 +34,7 @@ public class Modelo extends Observable{
     private int numFilasVista, numColumnasVista;
     private int velocidad;
     private int segundos, minutos, horas, contador;
-    private String tiempo, puntos, valor;
+    private String tiempo, puntos, puntosIA, valor;
     private Timer timer;
 
     /*************************** CONSTRUCTOR DE LA CLASE. **************************
@@ -91,6 +91,8 @@ public class Modelo extends Observable{
                 serpienteIA.add(serpIA);
                 ControladorMaquina controladorMaquina=new ControladorMaquina(this);
                 controladorMaquina.start();
+                AñadePuntosIA puntosIA=new AñadePuntosIA();
+                puntosIA.start();
                 break;
             case ("2"):
                 break;
@@ -171,6 +173,10 @@ public class Modelo extends Observable{
 
     public String getPuntos(){
         return puntos;
+    }
+
+    public String getPuntosIA(){
+        return puntosIA;
     }
 
     public int getUltimaDir(){
@@ -418,6 +424,35 @@ public class Modelo extends Observable{
         }
     }
 
+    public void actualizaPosicionIA(){
+        Serpiente serp;
+        switch (direccionIA){
+            case (1):
+                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()-1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
+                serpienteIA.add(serp);
+                ultimaDirIA=1;
+                break;
+            case (2):
+                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()+1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
+                serpienteIA.add(serp);
+                ultimaDirIA=2;
+                break;
+            case (3):
+                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()-1);
+                serpienteIA.add(serp);
+                ultimaDirIA=3;
+                break;
+            case (4):
+                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()+1);
+                serpienteIA.add(serp);
+                ultimaDirIA=4;
+                break;
+        }
+        // Si la dirección es distinta de 0 (se ha iniciado el juego), entonces podemos permitir que funcione el temporizador
+        if (direccionIA!=0)
+            serpienteIA.remove(0);
+    }
+
     /**************** CLASES QUE CONTROLAN MOVIMIENTOS NO DESEADOS. ****************
     Permiten controlar el correcto movimiento de la serpiente y se encuentran dentro
     del modelo, debido a que el Thread es el que permite el movimiento y posterior
@@ -430,6 +465,8 @@ public class Modelo extends Observable{
                 try{
                     Thread.sleep(velocidad);
                     actualizaPosicion();
+                    if (valor=="1")
+                        actualizaPosicionIA();
                     notificaCambios();
                 }catch (Exception ex){
                     System.out.println("Te has salidod e los limites");
@@ -475,6 +512,48 @@ public class Modelo extends Observable{
                                 break;
                         }
                         puntos=(Integer.toString((serpiente.size()-1)*10));
+                        trofeosComidos[pos]=true;
+                        generaPosiciones(pos);
+                    }
+                    Thread.sleep(0);
+                }catch (Exception ex){}
+            }
+        }
+    }
+
+    class AñadePuntosIA extends Thread{
+        @Override
+        public void run(){
+            while (true){
+                try{
+                    int pos=0;
+                    for (int i=0; i<trofeos.length; i++){
+                        if (esTrofeoComidoIA(trofeos[i])){
+                            pos=i;
+                            break;
+                        }
+                    }
+                    if (esTrofeoComidoIA(trofeos[pos])){
+                        Serpiente serp;
+                        switch (direccionIA){
+                            case (1):
+                                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()-1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
+                                serpienteIA.add(serp);
+                                break;
+                            case (2):
+                                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX()+1, serpienteIA.get(serpienteIA.size()-1).getColocacionY());
+                                serpienteIA.add(serp);
+                                break;
+                            case (3):
+                                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()-1);
+                                serpienteIA.add(serp);
+                                break;
+                            case (4):
+                                serp=new Serpiente(serpienteIA.get(serpienteIA.size()-1).getColocacionX(), serpienteIA.get(serpienteIA.size()-1).getColocacionY()+1);
+                                serpienteIA.add(serp);
+                                break;
+                        }
+                        puntosIA=(Integer.toString((serpienteIA.size()-1)*10));
                         trofeosComidos[pos]=true;
                         generaPosiciones(pos);
                     }

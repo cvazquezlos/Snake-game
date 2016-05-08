@@ -15,9 +15,12 @@ import java.util.TimerTask;
 
 public class VistaPuntuacion extends javax.swing.JFrame implements Observer{
 
+    String id;
+
     public VistaPuntuacion(String id) {
         initComponents();
-        jID.setText(id);
+        this.id=id;
+        jID.setText(this.id);
     }
 
     @SuppressWarnings("unchecked")
@@ -96,7 +99,10 @@ public class VistaPuntuacion extends javax.swing.JFrame implements Observer{
     public void update(Observable o, Object o1) {
         Modelo modelo=(Modelo) o;
         actualizarContador(modelo.getTiempo());
-        actualizarPuntos(modelo.getPuntos());
+        if (id=="Jugador IA")
+            actualizarPuntos(modelo.getPuntosIA());
+        else
+            actualizarPuntos(modelo.getPuntos());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

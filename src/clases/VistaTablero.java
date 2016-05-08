@@ -64,9 +64,19 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
 
     // Controla el choque de la serpiente consigo misma una vez ésta ha sido dibujada
     private boolean chocar(){
-        for(int i=0;i<serpiente.size()-1;i++){
+        for(int i=0; i<serpiente.size()-1; i++){
             if (paneles[serpiente.get(serpiente.size()-1).getColocacionX()][serpiente.get(serpiente.size()-1).getColocacionY()]
                     ==paneles[serpiente.get(i).getColocacionX()][serpiente.get(i).getColocacionY()]) return true;
+        }
+        return false;
+    }
+
+    // Controla el choque de la serpiente controlada por el usuario con la IA
+    private boolean chocarPlayerEnIA(){
+        for (int i=0; i<serpienteIA.size(); i++){
+            if (paneles[serpiente.get(0).getColocacionX()][serpiente.get(0).getColocacionY()]
+                    ==paneles[serpienteIA.get(i).getColocacionX()][serpienteIA.get(i).getColocacionY()])
+                return true;
         }
         return false;
     }
@@ -77,9 +87,14 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
             paneles[serpiente.get(i).getColocacionX()][serpiente.get(i).getColocacionY()].setBackground(colorSerpiente);
         for (int i=0; i<trofeos.length; i++)
             paneles[trofeos[i].getColocacionX()][trofeos[i].getColocacionY()].setBackground(colorTrofeo);
-        if (valor=="1")
+        if (valor=="1"){
             for (int i=0; i<serpienteIA.size(); i++)
                 paneles[serpienteIA.get(i).getColocacionX()][serpienteIA.get(i).getColocacionY()].setBackground(Color.cyan);
+            if (chocarPlayerEnIA()){
+                JOptionPane.showMessageDialog(null, "Te has chocado con la serpiente.\n\nPuntuación:  "+(serpiente.size()-1)*10);
+                System.exit(1);
+            }
+        }
         if (chocar()){
             JOptionPane.showMessageDialog(null, "Te has chocado contigo mismo.\n\nPuntuación:  "+(serpiente.size()-1)*10);
             System.exit(1);
