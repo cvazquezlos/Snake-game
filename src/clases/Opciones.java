@@ -1,11 +1,17 @@
-/*----------------------------------------
-Práctica de Metodología de la Programación
-Hecha por: Carlos Vázquez Losada
-----------------------------------------*/
+/***********************************************************************************
+******************* PRÁCTICA FINAL METODOLOGÍA DE LA PROGRAMACIÓN ******************
+******************** Carlos Vázquez Losada y Jorge Galindo Peña ********************
+************************************************************************************/
 package clases;
 
+/*************************** CLASE DEL OBJETO "OPCIONES". **************************
+Esta clase permite modificar los parámetros gráficos del tablero.
+************************************************************************************/
 public class Opciones extends javax.swing.JFrame {
 
+    /*************************** CONSTRUCTOR DE LA CLASE. **************************
+    No recibe ningún argumento en concreto. Simplemente lanza los componentes.
+    ********************************************************************************/
     public Opciones() {
         initComponents();
         // Elección del color de fondo
@@ -46,7 +52,7 @@ public class Opciones extends javax.swing.JFrame {
         eleccion6.add("Tryharder");
     }
 
-    @SuppressWarnings("unchecked")
+    // Código generado automáticamente por el IDE empleado: NetBeans
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -339,12 +345,17 @@ public class Opciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /****************************** MÉTODOS DE CLASE. ******************************
+    Agregan funcionalidades al objeto de la clase.
+    ********************************************************************************/
+    // Vuelve a la pantalla principal
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         PantallaPrincipal pp=new PantallaPrincipal();
         pp.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    // Almacena los cambios y genera una nueva ventana de pantalla principal con estos cambios
     private void AlmacenarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlmacenarCambiosActionPerformed
         // El tamaño del vector donde almacenaremos los resultados es 4 porque hay 4 opciones a editar
         String[] resultados=new String[6];

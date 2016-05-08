@@ -1,13 +1,22 @@
-
+/***********************************************************************************
+******************* PRÁCTICA FINAL METODOLOGÍA DE LA PROGRAMACIÓN ******************
+******************** Carlos Vázquez Losada y Jorge Galindo Peña ********************
+************************************************************************************/
 package clases;
 
+/************************ CLASE DEL OBJETO "INSTRUCCIONES". ************************
+Esta clase permite informar al cliente sobre cómo jugar.
+************************************************************************************/
 public class Instrucciones extends javax.swing.JFrame {
 
+    /*************************** CONSTRUCTOR DE LA CLASE. **************************
+    No recibe ningún argumento en especial.
+    ********************************************************************************/
     public Instrucciones() {
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
+    // Código generado automáticamente por el IDE empleado: NetBeans
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -337,6 +346,9 @@ public class Instrucciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /****************************** MÉTODOS DE CLASE. ******************************
+    Agregan funcionalidades al objeto de la clase.
+    ********************************************************************************/
     private void volverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverAtrasActionPerformed
         PantallaPrincipal pp=new PantallaPrincipal();
         pp.setVisible(true);

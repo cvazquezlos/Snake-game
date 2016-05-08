@@ -4,6 +4,7 @@
 ************************************************************************************/
 package clases;
 
+/******************************* PAQUETES IMPORTADOS *******************************/
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -13,14 +14,26 @@ import java.util.Observer;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**************************** CLASE DEL OBJETO "VISTA 2". **************************
+Esta clase es el modelo que observa a modelo. Como tal, implementa el patrón Observer
+y su método update.
+************************************************************************************/
 public class VistaTablero extends javax.swing.JFrame implements Observer {
 
+    /***************************** ATRIBUTOS DE CLASE. *****************************
+    Tienen acceso privado para facilitar el encapsulamiento. Para acceder a su con-
+    tenido emplearemos los métodos get y set (si es necesario).
+    ********************************************************************************/
     private Modelo modelo;
     private JPanel[][] paneles;
     private Color colorSerpiente, colorFondo, colorTrofeo;
     private ArrayList<Serpiente> serpiente, serpienteIA;
     private Trofeo[] trofeos;
 
+    /*************************** CONSTRUCTOR DE LA CLASE. **************************
+    Recibe como argumento el modelo para inicializarlo con algunos parámetros nece-
+    sarios.
+    ********************************************************************************/
     public VistaTablero(Modelo modelo) {
         initComponents();
         this.modelo=modelo;
@@ -38,13 +51,10 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
         this.setSize(d);
     }
 
-    private void restablecerTablero(){
-        for (int i=0; i<modelo.getFilas(); i++)
-            for (int j=0; j<modelo.getCols(); j++){
-                paneles[i][j].setBackground(colorFondo);
-            }
-    }
-
+    /*************************** MÉTODOS GETTER Y SETTER. **************************
+    Los métodos getter y setter permiten acceder a los elementos de la clase (métodos
+    getter) y modificarlos (métodos setter).
+    ********************************************************************************/
     private void setSerpiente(ArrayList<Serpiente> serpiente){
         this.serpiente=serpiente;
     }
@@ -60,6 +70,16 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
             this.trofeos[i].setColocacionX(trofeos[i].getColocacionX());
             this.trofeos[i].setColocacionY(trofeos[i].getColocacionY());
         }
+    }
+    /****************************** MÉTODOS DE CLASE. ******************************
+    Agregan funcionalidades al objeto de la clase.
+    ********************************************************************************/
+    // Restablece el tablero con el tamaño original
+    private void restablecerTablero(){
+        for (int i=0; i<modelo.getFilas(); i++)
+            for (int j=0; j<modelo.getCols(); j++){
+                paneles[i][j].setBackground(colorFondo);
+            }
     }
 
     // Controla el choque de la serpiente consigo misma una vez ésta ha sido dibujada
@@ -81,6 +101,17 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
         return false;
     }
 
+    // Controla el choque de la serpiente controlada por el usuario con la IA
+    private boolean chocarIAEnPlayer(){
+        for (int i=0; i<serpiente.size(); i++){
+            if (paneles[serpienteIA.get(0).getColocacionX()][serpienteIA.get(0).getColocacionY()]
+                    ==paneles[serpiente.get(i).getColocacionX()][serpiente.get(i).getColocacionY()])
+                return true;
+        }
+        return false;
+    }
+
+    // Dibuja la vista
     private void dibujarElementos(String valor){
         this.restablecerTablero();
         for (int i=0; i<serpiente.size(); i++)
@@ -93,6 +124,9 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
             if (chocarPlayerEnIA()){
                 JOptionPane.showMessageDialog(null, "Te has chocado con la serpiente.\n\nPuntuación:  "+(serpiente.size()-1)*10);
                 System.exit(1);
+            } else if (chocarIAEnPlayer()){
+                JOptionPane.showMessageDialog(null, "La serpiente se ha chocado contigo.\n\nPuntuación:  "+(serpiente.size()-1)*10);
+                System.exit(1);
             }
         }
         if (chocar()){
@@ -101,6 +135,23 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
         }
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        Modelo modelo=(Modelo) o;
+        colorSerpiente=modelo.getColorSerpiente();
+        colorFondo=modelo.getColorFondo();
+        colorTrofeo=modelo.getColorTrofeo();
+        setSerpiente(modelo.getSerpiente());
+        setTrofeos(modelo.getTrofeos());
+        switch (modelo.getValor()){
+            case ("1"):
+                setSerpienteIA(modelo.getSerpienteIA());
+                break;
+        }
+        dibujarElementos(modelo.getValor());
+    }
+
+    // Código generado automáticamente por el IDE empleado: NetBeans
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -143,26 +194,8 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel tablero;
     // End of variables declaration//GEN-END:variables
 
-
-
-    @Override
-    public void update(Observable o, Object arg) {
-        Modelo modelo=(Modelo) o;
-        colorSerpiente=modelo.getColorSerpiente();
-        colorFondo=modelo.getColorFondo();
-        colorTrofeo=modelo.getColorTrofeo();
-        setSerpiente(modelo.getSerpiente());
-        setTrofeos(modelo.getTrofeos());
-        switch (modelo.getValor()){
-            case ("1"):
-                setSerpienteIA(modelo.getSerpienteIA());
-                break;
-        }
-        dibujarElementos(modelo.getValor());
-    }
 }

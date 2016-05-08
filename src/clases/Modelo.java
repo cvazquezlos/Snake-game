@@ -383,6 +383,7 @@ public class Modelo extends Observable{
             timer.cancel();
     }
 
+    // Actualiza la posición de la serpiente controlada por el jugador
     public void actualizaPosicion(){
         Serpiente serp;
         switch (direccion){
@@ -424,6 +425,7 @@ public class Modelo extends Observable{
         }
     }
 
+    // Actualiza la serpiente controlada por el IA
     public void actualizaPosicionIA(){
         Serpiente serp;
         switch (direccionIA){

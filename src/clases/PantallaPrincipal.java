@@ -32,7 +32,6 @@ public class PantallaPrincipal extends javax.swing.JFrame{
     }
 
     // Código generado automáticamente por el IDE empleado: NetBeans
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -271,6 +270,7 @@ public class PantallaPrincipal extends javax.swing.JFrame{
         modelo.notificaCambios();
     }//GEN-LAST:event_jugadorvsiaActionPerformed
 
+    // Recopila la información de las opciones gráficas
     public void setResultados(String[] resultados){
         this.resultados=new String[resultados.length];
         for (int i=0; i<resultados.length; i++)

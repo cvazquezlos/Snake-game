@@ -4,6 +4,7 @@
 ************************************************************************************/
 package clases;
 
+/******************************* PAQUETES IMPORTADOS *******************************/
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JTextField;
@@ -13,16 +14,29 @@ import javax.swing.text.StyledDocument;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**************************** CLASE DEL OBJETO "VISTA 1". **************************
+Esta clase es el modelo que observa a modelo. Como tal, implementa el patrón Observer
+y su método update.
+************************************************************************************/
 public class VistaPuntuacion extends javax.swing.JFrame implements Observer{
 
-    String id;
+    /***************************** ATRIBUTOS DE CLASE. *****************************
+    Tienen acceso privado para facilitar el encapsulamiento. Para acceder a su con-
+    tenido emplearemos los métodos get y set (si es necesario).
+    ********************************************************************************/
+    private String id;
 
+    /*************************** CONSTRUCTOR DE LA CLASE. **************************
+    Recibe como argumento el ID que le permite dar nombre para identificar a los dis-
+    tintos jugadores.
+    ********************************************************************************/
     public VistaPuntuacion(String id) {
         initComponents();
         this.id=id;
         jID.setText(this.id);
     }
 
+    // Código generado automáticamente por el IDE empleado: NetBeans
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -87,11 +101,14 @@ public class VistaPuntuacion extends javax.swing.JFrame implements Observer{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void actualizarPuntos(String puntuacion){
+    /****************************** MÉTODOS DE CLASE. ******************************
+    Agregan funcionalidades al objeto de la clase.
+    ********************************************************************************/
+    private void actualizarPuntos(String puntuacion){
         puntos.setText(puntuacion);
     }
 
-    public void actualizarContador(String tiempo){
+    private void actualizarContador(String tiempo){
         contador.setText(tiempo);
     }
 

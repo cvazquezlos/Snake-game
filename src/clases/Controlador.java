@@ -10,11 +10,21 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/************************* CLASE DEL OBJETO "CONTROLADOR". *************************
+Esta clase permite controlar el modelo. Implementa el patrón MVC.
+************************************************************************************/
 public class Controlador implements KeyListener{
 
+    /***************************** ATRIBUTOS DE CLASE. *****************************
+    Tienen acceso privado para facilitar el encapsulamiento. Para acceder a su con-
+    tenido emplearemos los métodos get y set (si es necesario).
+    ********************************************************************************/
     private Modelo modelo;
     private int ultimaDir, direccion, direccionAnterior, velocidad;
 
+    /*************************** CONSTRUCTOR DE LA CLASE. **************************
+    Recibe como argumento el modelo y la vista a la que asociará el KeyListener.
+    ********************************************************************************/
     public Controlador(Modelo modelo, VistaTablero vista){
         this.modelo=modelo;
         ultimaDir=0;
@@ -25,12 +35,18 @@ public class Controlador implements KeyListener{
         vista.addKeyListener(this);
     }
 
-    // Método que recibe dos parámetros necesarios del modelo al que modifica
+    /*************************** MÉTODOS GETTER Y SETTER. **************************
+    Los métodos getter y setter permiten acceder a los elementos de la clase (métodos
+    getter) y modificarlos (métodos setter).
+    ********************************************************************************/
     public void setUltimasDirecciones(int ultimaDir, int direccionAnterior){
         this.ultimaDir=ultimaDir;
         this.direccionAnterior=direccionAnterior;
     }
 
+    /****************************** MÉTODOS DE CLASE. ******************************
+    Agregan funcionalidades al objeto de la clase.
+    ********************************************************************************/
     @Override
     public void keyTyped(KeyEvent e) {
     }

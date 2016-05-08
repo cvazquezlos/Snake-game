@@ -7,25 +7,42 @@ package clases;
 /******************************* PAQUETES IMPORTADOS *******************************/
 import java.util.ArrayList;
 
+/************************* CLASE DEL OBJETO "CONTROLADOR". *************************
+Esta clase permite controlar el modelo. Implementa el patrón MVC para la IA.
+************************************************************************************/
 public class ControladorMaquina extends Thread{
 
+    /***************************** ATRIBUTOS DE CLASE. *****************************
+    Tienen acceso privado para facilitar el encapsulamiento. Para acceder a su con-
+    tenido emplearemos los métodos get y set (si es necesario).
+    ********************************************************************************/
     private Modelo modelo;
     private int ultimaDir, direccion, velocidad;
     private ArrayList<Serpiente> serpienteIA;
     private int posicionX, posicionY;
 
+    /*************************** CONSTRUCTOR DE LA CLASE. **************************
+    Recibe como argumento el modelo.
+    ********************************************************************************/
     public ControladorMaquina(Modelo modelo){
         this.modelo=modelo;
         ultimaDir=0;
         direccion=0;
     }
 
+    /*************************** MÉTODOS GETTER Y SETTER. **************************
+    Los métodos getter y setter permiten acceder a los elementos de la clase (métodos
+    getter) y modificarlos (métodos setter).
+    ********************************************************************************/
     public void getDatos(ArrayList<Serpiente> serpienteIA, int posicionX, int posicionY){
         this.serpienteIA=serpienteIA;
         this.posicionX=posicionX;
         this.posicionY=posicionY;
     }
 
+    /****************************** MÉTODOS DE CLASE. ******************************
+    Agregan funcionalidades al objeto de la clase.
+    ********************************************************************************/
     @Override
     public void run(){
         while (true){
