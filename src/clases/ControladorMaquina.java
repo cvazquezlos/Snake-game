@@ -49,30 +49,78 @@ public class ControladorMaquina extends Thread{
         while (true){
             try{
                 this.getDatos(modelo.getSerpienteIA(), modelo.getPosicionX(), modelo.getPosicionY(), modelo.getVelocidadIA());
-                int diferenciaX=(serpienteIA.get(0).getColocacionX()-posicionX);
-                int diferenciaY=(serpienteIA.get(0).getColocacionY()-posicionY);
+                int diferenciaX=(serpienteIA.get(serpienteIA.size()-1).getColocacionX()-posicionX);
+                int diferenciaY=(serpienteIA.get(serpienteIA.size()-1).getColocacionY()-posicionY);
                 if (diferenciaX==0||diferenciaY==0){
                     if (diferenciaX==0)
                         if (diferenciaY>0)
-                            direccion=3;
+                            if (ultimaDir!=4){
+                                direccion=3;
+                                ultimaDir=3;
+                            }else{
+                                direccion=1;
+                                ultimaDir=1;
+                            }
                         else
-                            direccion=4;
+                            if (ultimaDir!=3){
+                                direccion=4;
+                                ultimaDir=4;
+                            }else{
+                                direccion=2;
+                                ultimaDir=2;
+                            }
                     else if (diferenciaY==0)
                         if (diferenciaX>0)
-                            direccion=1;
+                            if (ultimaDir!=2){
+                                direccion=1;
+                                ultimaDir=1;
+                            }else{
+                                direccion=3;
+                                ultimaDir=3;
+                            }
                         else
-                            direccion=2;
+                            if (ultimaDir!=1){
+                                direccion=2;
+                                ultimaDir=2;
+                            }else{
+                                direccion=4;
+                                ultimaDir=4;
+                            }
                 } else {
                     if (Math.abs(diferenciaX)>Math.abs(diferenciaY)){
                         if (diferenciaX>0)
-                            direccion=1;
+                            if (ultimaDir!=2){
+                                direccion=1;
+                                ultimaDir=1;
+                            }else{
+                                direccion=3;
+                                ultimaDir=3;
+                            }
                         else
-                            direccion=2;
+                            if (ultimaDir!=1){
+                                direccion=2;
+                                ultimaDir=2;
+                            }else{
+                                direccion=4;
+                                ultimaDir=4;
+                            }
                     }else{
                         if (diferenciaY>0)
-                            direccion=3;
+                            if (ultimaDir!=4){
+                                direccion=3;
+                                ultimaDir=3;
+                            }else{
+                                direccion=1;
+                                ultimaDir=1;
+                            }
                         else
-                            direccion=4;
+                            if (ultimaDir!=3){
+                                direccion=4;
+                                ultimaDir=4;
+                            }else{
+                                direccion=2;
+                                ultimaDir=2;
+                            }
                     }
                 }
                 modelo.setDireccionesIA(direccion, ultimaDir);
