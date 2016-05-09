@@ -34,10 +34,11 @@ public class ControladorMaquina extends Thread{
     Los métodos getter y setter permiten acceder a los elementos de la clase (métodos
     getter) y modificarlos (métodos setter).
     ********************************************************************************/
-    public void getDatos(ArrayList<Serpiente> serpienteIA, int posicionX, int posicionY){
+    public void getDatos(ArrayList<Serpiente> serpienteIA, int posicionX, int posicionY, int velocidad){
         this.serpienteIA=serpienteIA;
         this.posicionX=posicionX;
         this.posicionY=posicionY;
+        this.velocidad=velocidad;
     }
 
     /****************************** MÉTODOS DE CLASE. ******************************
@@ -47,7 +48,7 @@ public class ControladorMaquina extends Thread{
     public void run(){
         while (true){
             try{
-                this.getDatos(modelo.getSerpienteIA(), modelo.getPosicionX(), modelo.getPosicionY());
+                this.getDatos(modelo.getSerpienteIA(), modelo.getPosicionX(), modelo.getPosicionY(), modelo.getVelocidadIA());
                 int diferenciaX=(serpienteIA.get(0).getColocacionX()-posicionX);
                 int diferenciaY=(serpienteIA.get(0).getColocacionY()-posicionY);
                 if (diferenciaX==0||diferenciaY==0){

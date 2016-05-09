@@ -32,7 +32,7 @@ public class Modelo extends Observable{
     private int direccion, ultimaDir, direccionAnterior, direccionIA, ultimaDirIA;
     private Color colorFondoVista, colorSerpiente, colorTrofeo;
     private int numFilasVista, numColumnasVista;
-    private int velocidad;
+    private int velocidad, velocidadIA;
     private int segundos, minutos, horas, contador;
     private String tiempo, puntos, puntosIA, valor;
     private Timer timer;
@@ -81,6 +81,7 @@ public class Modelo extends Observable{
         trofeosComidos=new boolean[1];
         numFilasVista=40;
         numColumnasVista=40;
+        velocidadIA=90;
         }
         switch (this.valor){
             case ("0"):
@@ -169,6 +170,10 @@ public class Modelo extends Observable{
 
     public String getTiempo(){
         return tiempo;
+    }
+
+    public int getVelocidadIA(){
+        return velocidadIA;
     }
 
     public String getPuntos(){
@@ -306,6 +311,20 @@ public class Modelo extends Observable{
             case ("60x60"):
                 numFilasVista=60;
                 numColumnasVista=60;
+                break;
+        }
+        switch(resultados[5]){
+            case ("Noob"):
+                velocidadIA=150;
+                break;
+            case ("Normal"):
+                velocidadIA=120;
+                break;
+            case ("Pro"):
+                velocidadIA=85;
+                break;
+            case ("Tryharder"):
+                velocidadIA=50;
                 break;
         }
     }
