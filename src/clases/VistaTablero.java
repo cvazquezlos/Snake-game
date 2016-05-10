@@ -55,6 +55,10 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
     Los métodos getter y setter permiten acceder a los elementos de la clase (métodos
     getter) y modificarlos (métodos setter).
     ********************************************************************************/
+    public Modelo getModelo(){
+        return modelo;
+    }
+
     private void setSerpiente(ArrayList<Serpiente> serpiente){
         this.serpiente=serpiente;
     }
@@ -82,33 +86,10 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
             }
     }
 
-    // Controla el choque de la serpiente consigo misma una vez ésta ha sido dibujada
-    private boolean chocar(){
-        for(int i=0; i<serpiente.size()-1; i++){
-            if (paneles[serpiente.get(serpiente.size()-1).getColocacionX()][serpiente.get(serpiente.size()-1).getColocacionY()]
-                    ==paneles[serpiente.get(i).getColocacionX()][serpiente.get(i).getColocacionY()]) return true;
-        }
-        return false;
-    }
-
-    // Controla el choque de la serpiente controlada por el usuario con la IA
-    private boolean chocarPlayerEnIA(){
-        for (int i=0; i<serpienteIA.size(); i++){
-            if (paneles[serpiente.get(0).getColocacionX()][serpiente.get(0).getColocacionY()]
-                    ==paneles[serpienteIA.get(i).getColocacionX()][serpienteIA.get(i).getColocacionY()])
-                return true;
-        }
-        return false;
-    }
-
-    // Controla el choque de la serpiente controlada por el usuario con la IA
-    private boolean chocarIAEnPlayer(){
-        for (int i=0; i<serpiente.size(); i++){
-            if (paneles[serpienteIA.get(0).getColocacionX()][serpienteIA.get(0).getColocacionY()]
-                    ==paneles[serpiente.get(i).getColocacionX()][serpiente.get(i).getColocacionY()])
-                return true;
-        }
-        return false;
+    // Incluye un mensaje en la vista
+    public void setOptionPanel(String mensaje){
+        JOptionPane.showMessageDialog(null, mensaje);
+        System.exit(1);
     }
 
     // Dibuja la vista
@@ -121,28 +102,22 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
         if (valor=="1"){
             for (int i=0; i<serpienteIA.size(); i++)
                 paneles[serpienteIA.get(i).getColocacionX()][serpienteIA.get(i).getColocacionY()].setBackground(Color.cyan);
-            if (chocarPlayerEnIA()){
-                JOptionPane.showMessageDialog(null, "Te has chocado con la serpiente.\n\nPuntuación:  "+(serpiente.size()-1)*10);
-                System.exit(1);
-            } else if (chocarIAEnPlayer()){
-                JOptionPane.showMessageDialog(null, "La serpiente se ha chocado contigo.\n\nPuntuación:  "+(serpiente.size()-1)*10);
-                System.exit(1);
-            }
-        }
-        if (chocar()){
-            JOptionPane.showMessageDialog(null, "Te has chocado contigo mismo.\n\nPuntuación:  "+(serpiente.size()-1)*10);
-            System.exit(1);
         }
     }
 
     @Override
     public void update(Observable o, Object arg) {
         Modelo modelo=(Modelo) o;
+        this.modelo=modelo;
+        setSerpiente(modelo.getSerpiente());
+        setTrofeos(modelo.getTrofeos());
+        if (modelo.getMensaje()=="Choque")
+                setOptionPanel("Te has chocado contigo mismo.");
+        else if (modelo.getMensaje()=="Choque con IA")
+                setOptionPanel("Te has chocado con la serpiente automática.");
         colorSerpiente=modelo.getColorSerpiente();
         colorFondo=modelo.getColorFondo();
         colorTrofeo=modelo.getColorTrofeo();
-        setSerpiente(modelo.getSerpiente());
-        setTrofeos(modelo.getTrofeos());
         switch (modelo.getValor()){
             case ("1"):
                 setSerpienteIA(modelo.getSerpienteIA());

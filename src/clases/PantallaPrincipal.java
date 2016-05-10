@@ -223,9 +223,9 @@ public class PantallaPrincipal extends javax.swing.JFrame{
     private void botonLanzadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLanzadorActionPerformed
         Modelo modelo=new Modelo(resultados, indiv);
         VistaTablero vista=new VistaTablero(modelo);
-        vista.setVisible(true);
         VistaPuntuacion puntuacion=new VistaPuntuacion("Jugador 1", vista);
         puntuacion.setVisible(true);
+        vista.setVisible(true);
         puntuacion.setBounds((modelo.getCols()*15)-(modelo.getCols()/3), 40, 165, 320);
         Controlador controlador=new Controlador(modelo, vista);
         modelo.addObserver(vista);
@@ -256,11 +256,11 @@ public class PantallaPrincipal extends javax.swing.JFrame{
     private void jugadorvsiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugadorvsiaActionPerformed
         Modelo modelo=new Modelo(resultados, IA);
         VistaTablero vista=new VistaTablero(modelo);
-        vista.setVisible(true);
         VistaPuntuacion puntuacion=new VistaPuntuacion("Jugador 1", vista);
         VistaPuntuacion puntuacionIA=new VistaPuntuacion("Jugador IA", vista);
         puntuacionIA.setVisible(true);
         puntuacion.setVisible(true);
+        vista.setVisible(true);
         puntuacionIA.setBounds((modelo.getCols()*15)-(modelo.getCols()/3)+150, 40, 165, 320);
         puntuacion.setBounds((modelo.getCols()*15)-(modelo.getCols()/3), 40, 165, 320);
         Controlador controlador=new Controlador(modelo, vista);

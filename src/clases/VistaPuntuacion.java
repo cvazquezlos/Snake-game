@@ -26,6 +26,7 @@ public class VistaPuntuacion extends javax.swing.JFrame implements Observer{
     ********************************************************************************/
     private String id;
     private VistaTablero vista;
+    private Modelo modelo;
 
     /*************************** CONSTRUCTOR DE LA CLASE. **************************
     Recibe como argumento el ID que le permite dar nombre para identificar a los dis-
@@ -33,6 +34,7 @@ public class VistaPuntuacion extends javax.swing.JFrame implements Observer{
     ********************************************************************************/
     public VistaPuntuacion(String id, VistaTablero vista) {
         initComponents();
+        this.vista=vista;
         this.id=id;
         jID.setText(this.id);
     }
@@ -117,7 +119,11 @@ public class VistaPuntuacion extends javax.swing.JFrame implements Observer{
     }// </editor-fold>//GEN-END:initComponents
 
     private void endProccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endProccessActionPerformed
+        modelo.setStop();
+        vista.setOptionPanel("Se va a finalizar la conexión con el servidor.");
+        vista.setVisible(false);
         vista.dispose();
+        this.dispose();
     }//GEN-LAST:event_endProccessActionPerformed
 
     /****************************** MÉTODOS DE CLASE. ******************************
@@ -134,6 +140,7 @@ public class VistaPuntuacion extends javax.swing.JFrame implements Observer{
     @Override
     public void update(Observable o, Object o1) {
         Modelo modelo=(Modelo) o;
+        this.modelo=modelo;
         actualizarContador(modelo.getTiempo());
         if (id=="Jugador IA")
             actualizarPuntos(modelo.getPuntosIA());

@@ -29,12 +29,13 @@ public class Modelo extends Observable{
     private ArrayList<Serpiente> serpiente, serpienteIA;
     private Trofeo[] trofeos;
     private boolean[] trofeosComidos;
+    private boolean stop;
     private int direccion, ultimaDir, direccionAnterior, direccionIA, ultimaDirIA;
     private Color colorFondoVista, colorSerpiente, colorTrofeo;
     private int numFilasVista, numColumnasVista;
     private int velocidad, velocidadIA;
     private int segundos, minutos, horas, contador;
-    private String tiempo, puntos, puntosIA, valor;
+    private String tiempo, puntos, puntosIA, valor, mensaje;
     private Timer timer;
 
     /*************************** CONSTRUCTOR DE LA CLASE. **************************
@@ -67,6 +68,7 @@ public class Modelo extends Observable{
         segundos=0;
         minutos=0;
         horas=0;
+        stop=false;
         // Los puntos que ha conseguido el jugador se inicializan a 0
         puntos="0";
         // Si hay parámetros de entrada debido a la configuración, los aplicamos
@@ -106,6 +108,8 @@ public class Modelo extends Observable{
         // Lanzamos el método que nos permite añadir los trofeos al tablero de juego y engrandar la serpiente
         AñadePuntos puntos=new AñadePuntos();
         puntos.start();
+        Chocar choque=new Chocar();
+        choque.start();
     }
 
     /*************************** MÉTODOS GETTER Y SETTER. **************************
@@ -192,6 +196,10 @@ public class Modelo extends Observable{
         return direccionAnterior;
     }
 
+    public String getMensaje(){
+        return mensaje;
+    }
+
     public void setDirecciones(int direccion, int ultimaDir, int direccionAnterior){
         this.direccion=direccion;
         this.ultimaDir=ultimaDir;
@@ -206,6 +214,11 @@ public class Modelo extends Observable{
 
     public void setVelocidad(int velocidad){
        this.velocidad=velocidad;
+    }
+
+    public void setStop(){
+        stop=true;
+        direccion=0;
     }
 
     /****************************** MÉTODOS DE CLASE. ******************************
@@ -474,6 +487,25 @@ public class Modelo extends Observable{
             serpienteIA.remove(0);
     }
 
+    // Controla el choque de la serpiente controlada por el usuario con la IA
+    private boolean chocarPlayerEnIA(){
+        for (int i=0; i<serpienteIA.size(); i++){
+            if ((serpiente.get(0).getColocacionX()==serpienteIA.get(i).getColocacionX())
+                    &&(serpiente.get(0).getColocacionY()==serpienteIA.get(i).getColocacionY()))
+                return true;
+        }
+        return false;
+    }
+
+    // Controla el choque de la serpiente consigo misma
+    private boolean chocar(){
+        for(int i=0; i<serpiente.size()-1; i++){
+            if((serpiente.get(serpiente.size()-1).getColocacionX()==serpiente.get(i).getColocacionX())
+                    &&(serpiente.get(serpiente.size()-1).getColocacionY()==serpiente.get(i).getColocacionY())) return true;
+        }
+        return false;
+    }
+
     /**************** CLASES QUE CONTROLAN MOVIMIENTOS NO DESEADOS. ****************
     Permiten controlar el correcto movimiento de la serpiente y se encuentran dentro
     del modelo, debido a que el Thread es el que permite el movimiento y posterior
@@ -482,15 +514,33 @@ public class Modelo extends Observable{
     class Funcionamiento extends Thread{
         @Override
         public void run(){
-            while (true){
+            while (!stop){
                 try{
                     Thread.sleep(velocidad);
-                    actualizaPosicion();
-                    if (valor=="1")
-                        actualizaPosicionIA();
+                }catch (Exception ex){ }
+                actualizaPosicion();
+                if (valor=="1")
+                    actualizaPosicionIA();
+                notificaCambios();
+            }
+        }
+    }
+
+    class Chocar extends Thread{
+        @Override
+        public void run(){
+            while (!stop){
+                try{
+                    Thread.sleep(2);
+                }
+                catch(Exception e){}
+                if(chocar()){
+                    mensaje="Choque";
                     notificaCambios();
-                }catch (Exception ex){
-                    System.out.println("Te has salidod e los limites");
+                } else if (valor=="1")
+                    if(chocarPlayerEnIA()){
+                        mensaje="Choque con IA";
+                        notificaCambios();
                 }
             }
         }
@@ -503,7 +553,7 @@ public class Modelo extends Observable{
     class AñadePuntos extends Thread{
         @Override
         public void run(){
-            while (true){
+            while (!stop){
                 try{
                     int pos=0;
                     for (int i=0; i<trofeos.length; i++){
@@ -545,7 +595,7 @@ public class Modelo extends Observable{
     class AñadePuntosIA extends Thread{
         @Override
         public void run(){
-            while (true){
+            while (!stop){
                 try{
                     int pos=0;
                     for (int i=0; i<trofeos.length; i++){
