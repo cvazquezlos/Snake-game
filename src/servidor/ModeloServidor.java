@@ -36,7 +36,7 @@ public class ModeloServidor {
         this.longitudY = longitudY;
         // Genera un tesoro en una posición aleatoria
         Random rnd = new Random();
-        this.tesoro = new Punto(rnd.nextInt(this.longitudX), rnd.nextInt(this.longitudY));
+        this.tesoro = new Punto(rnd.nextInt(this.longitudX-1), rnd.nextInt(this.longitudY-1));
         this.tesoroTemporal = new Punto();
         // Comienza el hilo
         hilo.start();
