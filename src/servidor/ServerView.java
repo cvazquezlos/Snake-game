@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Representa el socket del servidor.
@@ -14,6 +15,7 @@ public class ServerView extends javax.swing.JFrame {
 
     private ModeloServidor modelo;
     private ArrayList<String> jugadores;
+    private DefaultTableModel model;
 
     /**
      *
@@ -24,6 +26,7 @@ public class ServerView extends javax.swing.JFrame {
         jugadores = new ArrayList<String>();
         initComponents();
         estadoServidor.setText("Actualmente hay 0 jugadores conectados.");
+        model = (DefaultTableModel) tablaJugadores.getModel();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -61,10 +64,7 @@ public class ServerView extends javax.swing.JFrame {
 
         tablaJugadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Jugador", "Puntuación"
@@ -111,14 +111,18 @@ public class ServerView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void actualizaLista(int idJugador) {
+    @SuppressWarnings("empty-statement")
+    public void actualizaTabla(int idJugador, int puntuacion) {
+        String nombreJugador = String.valueOf(idJugador);
+        String puntuacionJugador = String.valueOf(puntuacion);
+        Object[] fila = {nombreJugador, puntuacionJugador};
         jugadores.add("Jugador "+String.valueOf(idJugador));
         String[] es = new String[jugadores.size()];
         for (int i = 0; i < es.length; i++) {
             es[i] = jugadores.get(i);
         }
         listaJugadores.setListData(es);
-        tablaJugadores.getColumnName(0);
+        model.addRow(fila);
         estadoServidor.setText("Actualmente hay "+es.length+" jugadores conectados.");
     }
 
