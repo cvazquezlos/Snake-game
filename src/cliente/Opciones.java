@@ -1,8 +1,8 @@
-
 package cliente;
 
 /**
  * Ventana que permite modificar el aspecto gráfico del juego.
+ *
  * @author c.vazquezlos
  */
 public class Opciones extends javax.swing.JFrame {
@@ -11,6 +11,7 @@ public class Opciones extends javax.swing.JFrame {
 
     /**
      * Construye la ventana que permite editar los valores del juego.
+     *
      * @param iuRed
      */
     public Opciones(InterfazRed iuRed) {
@@ -29,7 +30,7 @@ public class Opciones extends javax.swing.JFrame {
         eleccion5.add("40x40");
         eleccion5.add("50x50");
         eleccion5.add("60x60");
-        this.iuRed=iuRed;
+        this.iuRed = iuRed;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -197,17 +198,17 @@ public class Opciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PantallaPrincipal pp=new PantallaPrincipal(iuRed);
+        PantallaPrincipal pp = new PantallaPrincipal(iuRed);
         pp.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void AlmacenarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlmacenarCambiosActionPerformed
         // El tamaño del vector donde almacenaremos los resultados es 4 porque hay 4 opciones a editar
-        String[] resultados=new String[6];
-        resultados[0]=eleccion1.getSelectedItem();
-        resultados[4]=eleccion5.getSelectedItem();
-        PantallaPrincipal pp=new PantallaPrincipal(resultados, iuRed);
+        String[] resultados = new String[6];
+        resultados[0] = eleccion1.getSelectedItem();
+        resultados[4] = eleccion5.getSelectedItem();
+        PantallaPrincipal pp = new PantallaPrincipal(resultados, iuRed);
         pp.setResultados(resultados);
         pp.setVisible(true);
         dispose();

@@ -1,11 +1,11 @@
-
 package servidor;
 
 /**
  * Representa regiones del tablero.
+ *
  * @author c.vazquezlos
  */
-public class Punto{
+public class Punto {
 
     private int x;
     private int y;
@@ -13,12 +13,13 @@ public class Punto{
     /**
      * Constructor por defecto.
      */
-    public Punto(){
-        this(0,0);
+    public Punto() {
+        this(0, 0);
     }
 
     /**
      * Constructor con parámetros para la localización.
+     *
      * @param x
      * @param y
      */
@@ -65,9 +66,9 @@ public class Punto{
      */
     @Override
     public int hashCode() {
-        int hash=7;
-        hash=41*hash+this.x;
-        hash=41*hash+this.y;
+        int hash = 7;
+        hash = 41 * hash + this.x;
+        hash = 41 * hash + this.y;
         return hash;
     }
 
@@ -78,7 +79,7 @@ public class Punto{
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj==null) {
+        if (obj == null) {
             return false;
         }
         if (getClass() != obj.getClass()) {

@@ -1,4 +1,3 @@
-
 package cliente;
 
 import java.io.BufferedReader;
@@ -10,6 +9,7 @@ import java.util.logging.Logger;
 
 /**
  * Clase que implementa la hebra del cliente (Thread del modelo del cliente).
+ *
  * @author c.vazquezlos
  */
 public class HebraCliente extends Thread {
@@ -22,27 +22,28 @@ public class HebraCliente extends Thread {
 
     /**
      * Constructor de la hebra.
+     *
      * @param socket
      * @param vistas
      */
     HebraCliente(Socket socket, ModeloVistas vistas) throws IOException {
-        this.vistas=vistas;
-        this.socket=socket;
-        this.fin=true;
-        streamIn=new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        this.vistas = vistas;
+        this.socket = socket;
+        this.fin = true;
+        streamIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
     /**
-     *Redefinición del método Thread asociado a la hebra.
+     * Redefinición del método Thread asociado a la hebra.
      */
     @Override
-    public void run(){
+    public void run() {
         try {
-            while (fin){
-                String mensaje=streamIn.readLine();
+            while (fin) {
+                String mensaje = streamIn.readLine();
                 System.out.println("del servidor: " + mensaje);
-                String[] info=mensaje.split(";");
-                String cabecera=info[0];
+                String[] info = mensaje.split(";");
+                String cabecera = info[0];
                 switch (cabecera) {
                     case ("IDC"):
                         vistas.empezar(info[1], info[2], info[3]);
@@ -73,10 +74,11 @@ public class HebraCliente extends Thread {
 
     /**
      * Finaliza y termina la ejecución.
+     *
      * @throws IOException
      * @throws InterruptedException
      */
-    public void acabar() throws IOException, InterruptedException{
+    public void acabar() throws IOException, InterruptedException {
         this.fin = false;
         Thread.sleep(100);
         streamIn.close();

@@ -1,4 +1,3 @@
-
 package servidor;
 
 import java.io.IOException;
@@ -7,6 +6,7 @@ import java.util.logging.Logger;
 
 /**
  * Representa el socket del servidor.
+ *
  * @author c.vazquezlos
  */
 public class ServerView extends javax.swing.JFrame {
@@ -25,7 +25,7 @@ public class ServerView extends javax.swing.JFrame {
      * @param modelo
      */
     public ServerView(ModeloServidor modelo) {
-        this.modelo=modelo;
+        this.modelo = modelo;
         initComponents();
     }
 

@@ -1,4 +1,3 @@
-
 package cliente;
 
 import java.util.Observable;
@@ -6,10 +5,12 @@ import java.util.Observer;
 import javax.swing.JLabel;
 
 /**
- * Vista de la puntuación obtenida por cada jugador. Implementa la vista del MVC y del Observer.
+ * Vista de la puntuación obtenida por cada jugador. Implementa la vista del MVC
+ * y del Observer.
+ *
  * @author c.vazquezlos
  */
-public class VistaPuntuacion extends javax.swing.JFrame implements Observer{
+public class VistaPuntuacion extends javax.swing.JFrame implements Observer {
 
     /**
      * Constructor del tablero de la puntuación.
@@ -20,9 +21,10 @@ public class VistaPuntuacion extends javax.swing.JFrame implements Observer{
 
     /**
      * Devuelve el valor de la puntuación.
+     *
      * @return
      */
-    public JLabel getPuntuacion(){
+    public JLabel getPuntuacion() {
         return puntuacion;
     }
 
@@ -74,6 +76,6 @@ public class VistaPuntuacion extends javax.swing.JFrame implements Observer{
 
     @Override
     public void update(Observable o, Object o1) {
-        ModeloVistas modelo=(ModeloVistas) o;
+        ModeloVistas modelo = (ModeloVistas) o;
     }
 }

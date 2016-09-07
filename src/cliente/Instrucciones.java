@@ -1,8 +1,8 @@
-
 package cliente;
 
 /**
  * Ventana que muestra los controles para jugar al Snake.
+ *
  * @author c.vazquezlos
  */
 public class Instrucciones extends javax.swing.JFrame {
@@ -11,11 +11,12 @@ public class Instrucciones extends javax.swing.JFrame {
 
     /**
      * Constructor que muestra el contenido de la ventana.
+     *
      * @param iuRed
      */
     public Instrucciones(InterfazRed iuRed) {
         initComponents();
-        this.iuRed=iuRed;
+        this.iuRed = iuRed;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -349,7 +350,7 @@ public class Instrucciones extends javax.swing.JFrame {
 
 
     private void volverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverAtrasActionPerformed
-        PantallaPrincipal pp=new PantallaPrincipal(iuRed);
+        PantallaPrincipal pp = new PantallaPrincipal(iuRed);
         pp.setVisible(true);
         dispose();
     }//GEN-LAST:event_volverAtrasActionPerformed

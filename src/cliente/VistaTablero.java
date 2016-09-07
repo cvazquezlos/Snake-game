@@ -1,4 +1,3 @@
-
 package cliente;
 
 import java.awt.Color;
@@ -13,18 +12,20 @@ import java.util.logging.Logger;
 
 /**
  * Representa la vista del tablero. Implementa la vista del MVC y del Observer.
+ *
  * @author c.vazquezlos
  */
-public class VistaTablero extends javax.swing.JFrame implements Observer{
+public class VistaTablero extends javax.swing.JFrame implements Observer {
 
     private GridLayout layout;
     private JPanel[][] referencia;
-    private Color[] coloresTablero={new java.awt.Color(204, 255, 204),Color.BLACK,Color.ORANGE};
-    private Color[] coloresJugador={Color.RED,Color.BLUE,Color.PINK,Color.BLUE,Color.YELLOW};
+    private Color[] coloresTablero = {new java.awt.Color(204, 255, 204), Color.BLACK, Color.ORANGE};
+    private Color[] coloresJugador = {Color.RED, Color.BLUE, Color.PINK, Color.BLUE, Color.YELLOW};
     private ModeloVistas modelo;
 
     /**
      * Constructor con diferentes parámetros que recibe del modelo.
+     *
      * @param filas
      * @param columnas
      * @param idJugador
@@ -32,21 +33,21 @@ public class VistaTablero extends javax.swing.JFrame implements Observer{
      * @param colorFondo
      * @param dimension
      */
-    public VistaTablero(int filas, int columnas, int idJugador, ModeloVistas modelo, Color colorFondo, Dimension dimension){
+    public VistaTablero(int filas, int columnas, int idJugador, ModeloVistas modelo, Color colorFondo, Dimension dimension) {
         initComponents();
         jButtonFinalizar.setFocusable(false);
-        layout=new GridLayout(filas, columnas);
-        referencia=new JPanel[filas][columnas];
+        layout = new GridLayout(filas, columnas);
+        referencia = new JPanel[filas][columnas];
         tablero.setLayout(layout);
         for (int i = 0; i < layout.getRows(); i++) {
-            for (int j = 0; j <layout.getColumns(); j++) {
-                JPanel p= new JPanel();
+            for (int j = 0; j < layout.getColumns(); j++) {
+                JPanel p = new JPanel();
                 p.setBackground(colorFondo);
-                referencia[i][j]=p;
+                referencia[i][j] = p;
                 tablero.add(p);
             }
         }
-        this.modelo=modelo;
+        this.modelo = modelo;
         this.setSize(dimension);
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -105,9 +106,10 @@ public class VistaTablero extends javax.swing.JFrame implements Observer{
 
     /**
      * Permite asignarle un controlador.
+     *
      * @param controlador
      */
-    public void setControlador(Controlador controlador){
+    public void setControlador(Controlador controlador) {
         addKeyListener(controlador);
     }
 
@@ -130,7 +132,7 @@ public class VistaTablero extends javax.swing.JFrame implements Observer{
     /**
      * Lanza la vista.
      */
-    public void arrancar(){
+    public void arrancar() {
         setVisible(true);
         setLocationRelativeTo(null);
     }
@@ -138,31 +140,30 @@ public class VistaTablero extends javax.swing.JFrame implements Observer{
     /**
      * Pinta la serpiente en el tablero.
      */
-    private void pintaSerpiente(String info){
-        String[] args=info.split(";");
-        Color color=(Boolean.parseBoolean(args[0]))? coloresJugador[Integer.parseInt(args[1])]:coloresTablero[Integer.parseInt(args[1])];
-        int x=Integer.parseInt(args[2]);
-        int y=Integer.parseInt(args[3]);
+    private void pintaSerpiente(String info) {
+        String[] args = info.split(";");
+        Color color = (Boolean.parseBoolean(args[0])) ? coloresJugador[Integer.parseInt(args[1])] : coloresTablero[Integer.parseInt(args[1])];
+        int x = Integer.parseInt(args[2]);
+        int y = Integer.parseInt(args[3]);
         referencia[x][y].setBackground(color);
-        if(args.length>4){
-            x=Integer.parseInt(args[4]);
-            y=Integer.parseInt(args[5]);
+        if (args.length > 4) {
+            x = Integer.parseInt(args[4]);
+            y = Integer.parseInt(args[5]);
             referencia[x][y].setBackground(coloresTablero[0]);
         }
     }
 
     /**
      * Redefine el método update debido a que hereda de Observer.
+     *
      * @param o
      * @param arg
      */
     @Override
     public void update(Observable o, Object arg) {
-        String info=(String) arg;
-        if (info!="puntuacion")
+        String info = (String) arg;
+        if (info != "puntuacion") {
             pintaSerpiente(info);
+        }
     }
 }
-
-
-

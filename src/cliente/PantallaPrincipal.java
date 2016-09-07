@@ -1,11 +1,11 @@
-
 package cliente;
 
 /**
  * Representa la interfaz en la que el usuario introduce el modo de juego.
+ *
  * @author c.vazquezlos
  */
-public class PantallaPrincipal extends javax.swing.JFrame{
+public class PantallaPrincipal extends javax.swing.JFrame {
 
     private String[] resultados;
     // Boolean que se activan si el juego es contra la IA o contra otro jugador
@@ -14,41 +14,44 @@ public class PantallaPrincipal extends javax.swing.JFrame{
 
     /**
      * Constructor con la interfaz de red y los resultados gráficos.
+     *
      * @param resultados
      * @param iuRed
      */
     public PantallaPrincipal(String[] resultados, InterfazRed iuRed) {
         initComponents();
-        this.iuRed=iuRed;
-        this.resultados=resultados;
-        indiv="0";
-        IA="1";
-        comp="2";
+        this.iuRed = iuRed;
+        this.resultados = resultados;
+        indiv = "0";
+        IA = "1";
+        comp = "2";
     }
 
     /**
      * Constructor con la interfaz de red
+     *
      * @param iuRed
      */
     public PantallaPrincipal(InterfazRed iuRed) {
         initComponents();
-        this.iuRed=iuRed;
-        resultados=new String[1];
-        indiv="0";
-        IA="1";
-        comp="2";
+        this.iuRed = iuRed;
+        resultados = new String[1];
+        indiv = "0";
+        IA = "1";
+        comp = "2";
     }
 
     /**
      * Constructor con los resultados
+     *
      * @param resultados
      */
     public PantallaPrincipal(String[] resultados) {
         initComponents();
-        this.resultados=resultados;
-        indiv="0";
-        IA="1";
-        comp="2";
+        this.resultados = resultados;
+        indiv = "0";
+        IA = "1";
+        comp = "2";
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -199,7 +202,7 @@ public class PantallaPrincipal extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void opcionesActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesActivarActionPerformed
-        Opciones opcion=new Opciones(iuRed);
+        Opciones opcion = new Opciones(iuRed);
         opcion.setVisible(true);
         this.setVisible(false);
         dispose();
@@ -213,7 +216,7 @@ public class PantallaPrincipal extends javax.swing.JFrame{
     }//GEN-LAST:event_botonLanzadorActionPerformed
 
     private void botonInstruccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInstruccionesActionPerformed
-        Instrucciones instrucciones=new Instrucciones(iuRed);
+        Instrucciones instrucciones = new Instrucciones(iuRed);
         instrucciones.setVisible(true);
         dispose();
     }//GEN-LAST:event_botonInstruccionesActionPerformed
@@ -228,12 +231,14 @@ public class PantallaPrincipal extends javax.swing.JFrame{
 
     /**
      * Introduce el valor de los resultados.
+     *
      * @param resultados
      */
-    public void setResultados(String[] resultados){
-        this.resultados=new String[resultados.length];
-        for (int i=0; i<resultados.length; i++)
-            this.resultados[i]=resultados[i];
+    public void setResultados(String[] resultados) {
+        this.resultados = new String[resultados.length];
+        for (int i = 0; i < resultados.length; i++) {
+            this.resultados[i] = resultados[i];
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

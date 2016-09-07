@@ -1,4 +1,3 @@
-
 package servidor;
 
 import java.io.DataOutputStream;
@@ -9,9 +8,11 @@ import java.net.Socket;
 
 /**
  * Representa al jugador. Cada socket cliente es un jugador.
+ *
  * @author c.vazquezlos
  */
 public class Jugador {
+
     // Serpiente que manejará el jugador
     private LinkedList serpiente;
     // ID asociado al cliente
@@ -24,12 +25,13 @@ public class Jugador {
 
     /**
      * Constructor del jugador con los parámetros esenciales de éste.
+     *
      * @param serpiente
      * @param idCliente
      * @param sc
      * @throws IOException
      */
-    public Jugador(LinkedList serpiente, int idCliente , Socket sc) throws IOException {
+    public Jugador(LinkedList serpiente, int idCliente, Socket sc) throws IOException {
         this.serpiente = serpiente;
         this.idCliente = idCliente;
         Random rnd = new Random();
@@ -40,70 +42,79 @@ public class Jugador {
 
     /**
      * Devuelve la serpiente.
+     *
      * @return
      */
-    public LinkedList getSerpiente(){
+    public LinkedList getSerpiente() {
         return serpiente;
     }
 
     /**
      * Devuelve el ID del cliente.
+     *
      * @return
      */
-    public int getIdCliente(){
+    public int getIdCliente() {
         return idCliente;
     }
 
     /**
      * Devuelve el socket.
+     *
      * @return
      */
-    public Socket getSocket(){
+    public Socket getSocket() {
         return socket;
     }
 
     /**
      * Devuelve la dirección a la que se dirige.
+     *
      * @return
      */
-    public int getDireccion(){
+    public int getDireccion() {
         return direccion;
     }
 
     /**
      * Devuelve el streamOut (socket servidor).
+     *
      * @return
      */
-    public DataOutputStream getStreamOut(){
+    public DataOutputStream getStreamOut() {
         return streamOut;
     }
 
     /**
      * Permite asignarle un ID (si no lo tiene).
+     *
      * @param idCliente
      */
-    public void setIdCliente(int idCliente){
+    public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
     /**
      * Permite asignarle una dirección (si no la tiene).
+     *
      * @param direccion
      */
-    public void setDireccion(int direccion){
+    public void setDireccion(int direccion) {
         this.direccion = direccion;
     }
 
     /**
      * Permite asignarle un socket (si no lo tiene).
+     *
      * @param socket
      */
-    public void setSocket(Socket socket){
+    public void setSocket(Socket socket) {
         this.socket = socket;
     }
 
     /**
      * Permite asignarle un streamOut (si no lo tiene).
+     *
      * @param streamOut
      */
     public void setStreamOut(DataOutputStream streamOut) {
@@ -112,10 +123,11 @@ public class Jugador {
 
     /**
      * Realiza una copia del jugador.
+     *
      * @return
      * @throws CloneNotSupportedException
      */
-    public Jugador copia() throws CloneNotSupportedException{
-        return (Jugador)this.clone();
+    public Jugador copia() throws CloneNotSupportedException {
+        return (Jugador) this.clone();
     }
 }

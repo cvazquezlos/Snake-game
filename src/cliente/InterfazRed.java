@@ -1,6 +1,4 @@
-
 package cliente;
-
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -8,6 +6,7 @@ import java.io.IOException;
 
 /**
  * Ventana que permite recopilar la información sobre el servidor.
+ *
  * @author c.vazquezlos
  */
 public class InterfazRed extends javax.swing.JFrame {
@@ -17,10 +16,11 @@ public class InterfazRed extends javax.swing.JFrame {
 
     /**
      * Constructor de la ventana con el parámetro del modelo del cliente.
+     *
      * @param modelo
      */
     public InterfazRed(ModeloVistas modelo) {
-        this.modelo=modelo;
+        this.modelo = modelo;
         initComponents();
     }
 
@@ -33,6 +33,7 @@ public class InterfazRed extends javax.swing.JFrame {
 
     /**
      * Devuelve la dirección IP asociada al host.
+     *
      * @return
      */
     public String getDireccionIp() {
@@ -41,14 +42,16 @@ public class InterfazRed extends javax.swing.JFrame {
 
     /**
      * Devuelve los resultados que son introducidos por la ventana Opciones.
+     *
      * @return
      */
-    public String[] getResultados(){
+    public String[] getResultados() {
         return resultados;
     }
 
     /**
      * Devuelve el puerto de conexión.
+     *
      * @return
      */
     public int getPuerto() {
@@ -157,12 +160,12 @@ public class InterfazRed extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     // Inserta los valores de las opciones gráficas
-
     /**
      * Introduce los cambios gráficos de la ventana de opciones.
+     *
      * @param resultados
      */
     public void insertarOpciones(String[] resultados) {
-        this.resultados=resultados;
+        this.resultados = resultados;
     }
 }

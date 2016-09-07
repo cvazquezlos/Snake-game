@@ -1,4 +1,3 @@
-
 package servidor;
 
 import java.net.Socket;
@@ -18,7 +17,7 @@ public class ModeloServidor {
     private ArrayList<Jugador> jugadores;
     private int longitudX;
     private int longitudY;
-    private int velocidad=3000;
+    private int velocidad = 3000;
     private Punto tesoro;
     private Punto tesoroTemporal;
     Thread hilo = iniciar();
@@ -30,15 +29,15 @@ public class ModeloServidor {
      * @param longitudY
      * @throws IOException
      */
-    public ModeloServidor(int longitudX, int longitudY) throws IOException{
-        terminar=false;
-        jugadores=new ArrayList<>();
-        this.longitudX=longitudX;
-        this.longitudY=longitudY;
+    public ModeloServidor(int longitudX, int longitudY) throws IOException {
+        terminar = false;
+        jugadores = new ArrayList<>();
+        this.longitudX = longitudX;
+        this.longitudY = longitudY;
         // Genera un tesoro en una posición aleatoria
-        Random rnd=new Random();
-        this.tesoro=new Punto(rnd.nextInt(this.longitudX), rnd.nextInt(this.longitudY));
-        this.tesoroTemporal=new Punto();
+        Random rnd = new Random();
+        this.tesoro = new Punto(rnd.nextInt(this.longitudX), rnd.nextInt(this.longitudY));
+        this.tesoroTemporal = new Punto();
         // Comienza el hilo
         hilo.start();
     }
@@ -49,13 +48,13 @@ public class ModeloServidor {
      * @param socket
      * @throws IOException
      */
-    public void añadeJugador(int idJugador, Socket socket) throws IOException{
-        Random rnd=new Random();
+    public void añadeJugador(int idJugador, Socket socket) throws IOException {
+        Random rnd = new Random();
         // Inserta al jugador en una posición aleatoria en el tablero
-        Punto punto=new Punto(rnd.nextInt(longitudX), rnd.nextInt(longitudY));
-        LinkedList serpiente=new LinkedList();
+        Punto punto = new Punto(rnd.nextInt(longitudX), rnd.nextInt(longitudY));
+        LinkedList serpiente = new LinkedList();
         serpiente.add(punto);
-        Jugador jugador=new Jugador(serpiente, idJugador, socket);
+        Jugador jugador = new Jugador(serpiente, idJugador, socket);
         jugador.setDireccion(rnd.nextInt(4));
         jugadores.add(jugador);
     }
@@ -65,9 +64,9 @@ public class ModeloServidor {
      * @param idJugador
      * @throws IOException
      */
-    public void conecta(int idJugador) throws IOException{
-        String cabecera="IDC";
-        String cuerpo=idJugador+";"+longitudX+";"+longitudY;
+    public void conecta(int idJugador) throws IOException {
+        String cabecera = "IDC";
+        String cuerpo = idJugador + ";" + longitudX + ";" + longitudY;
         enviarMensaje(cabecera + ";" + cuerpo);
         pintarTesoro(tesoro.getCoordenadaX(), tesoro.getCoordenadaY(), 1);
     }
@@ -77,10 +76,10 @@ public class ModeloServidor {
      * @param mensaje
      * @throws IOException
      */
-    public void enviarMensaje(String mensaje) throws IOException{
+    public void enviarMensaje(String mensaje) throws IOException {
         System.out.println("a clientes:" + mensaje);
-        for (Jugador j:jugadores){
-            j.getStreamOut().writeBytes(mensaje+"\n");
+        for (Jugador j : jugadores) {
+            j.getStreamOut().writeBytes(mensaje + "\n");
             j.getStreamOut().flush();
         }
     }
@@ -90,21 +89,21 @@ public class ModeloServidor {
      * @throws IOException
      * @throws InterruptedException
      */
-    public void finalizaConexion() throws IOException, InterruptedException{
-        String cabecera="FIN";
-        for (int i=0; i<jugadores.size(); i++){
+    public void finalizaConexion() throws IOException, InterruptedException {
+        String cabecera = "FIN";
+        for (int i = 0; i < jugadores.size(); i++) {
             enviarMensaje(cabecera);
             jugadores.get(i).getStreamOut().close();
             jugadores.get(i).getSocket().close();
         }
-        this.terminar=true;
+        this.terminar = true;
     }
 
     /**
      *
      * @return
      */
-    public boolean esTerminado(){
+    public boolean esTerminado() {
         return terminar;
     }
 
@@ -113,7 +112,7 @@ public class ModeloServidor {
      * @param nuevaDir
      * @param idJugador
      */
-    public void cambiarDireccion(String nuevaDir, int idJugador){
+    public void cambiarDireccion(String nuevaDir, int idJugador) {
         switch (nuevaDir) {
             case "ARRIBA":
                 arriba(idJugador);
@@ -130,53 +129,53 @@ public class ModeloServidor {
         }
     }
 
-    private void arriba(int idJugador){
-        if (jugadores.get(idJugador).getDireccion()!=3){
+    private void arriba(int idJugador) {
+        if (jugadores.get(idJugador).getDireccion() != 3) {
             jugadores.get(idJugador).setDireccion(1);
         }
     }
 
-    private void abajo(int idJugador){
-        if (jugadores.get(idJugador).getDireccion()!=1){
+    private void abajo(int idJugador) {
+        if (jugadores.get(idJugador).getDireccion() != 1) {
             jugadores.get(idJugador).setDireccion(3);
         }
     }
 
-    private void izquierda(int idJugador){
-        if (jugadores.get(idJugador).getDireccion()!=2){
+    private void izquierda(int idJugador) {
+        if (jugadores.get(idJugador).getDireccion() != 2) {
             jugadores.get(idJugador).setDireccion(0);
         }
     }
 
-    private void derecha(int idJugador){
-        if (jugadores.get(idJugador).getDireccion()!=0){
+    private void derecha(int idJugador) {
+        if (jugadores.get(idJugador).getDireccion() != 0) {
             jugadores.get(idJugador).setDireccion(2);
         }
     }
 
     private void pintarTesoro(int coordenadaX, int coordenadaY, int t) throws IOException {
-        String cabecera="TSR";
-        String cuerpo=t+";"+coordenadaX+";"+coordenadaY;
-        enviarMensaje(cabecera+";"+cuerpo);
+        String cabecera = "TSR";
+        String cuerpo = t + ";" + coordenadaX + ";" + coordenadaY;
+        enviarMensaje(cabecera + ";" + cuerpo);
     }
 
     private void puntuacion(int idJugador) throws IOException {
-        String cabecera="PTS";
-        String cuerpo=Integer.toString((jugadores.get(idJugador).getSerpiente().size())*10);
-        enviarMensaje(cabecera+";"+cuerpo);
+        String cabecera = "PTS";
+        String cuerpo = Integer.toString((jugadores.get(idJugador).getSerpiente().size()) * 10);
+        enviarMensaje(cabecera + ";" + cuerpo);
     }
 
     private void addTesoro(int tesoroAAñadir) throws IOException {
-        Random rnd=new Random();
-        if (tesoroAAñadir==1) {
-            int x=rnd.nextInt(longitudX);
-            int y=rnd.nextInt(longitudY);
-            tesoro=new Punto(x, y);
+        Random rnd = new Random();
+        if (tesoroAAñadir == 1) {
+            int x = rnd.nextInt(longitudX);
+            int y = rnd.nextInt(longitudY);
+            tesoro = new Punto(x, y);
             pintarTesoro(tesoro.getCoordenadaX(), tesoro.getCoordenadaY(), 1);
         } else {
-            int x=rnd.nextInt(longitudX);
-            int y=rnd.nextInt(longitudY);
-            tesoroTemporal=new Punto(x, y);
+            int x = rnd.nextInt(longitudX);
+            int y = rnd.nextInt(longitudY);
+            tesoroTemporal = new Punto(x, y);
             pintarTesoro(tesoroTemporal.getCoordenadaX(), tesoroTemporal.getCoordenadaY(), 2);
         }
     }
@@ -188,7 +187,7 @@ public class ModeloServidor {
      * @throws IOException
      */
     public void tesoroComido(int t, int id) throws IOException {
-        if (t==1) {
+        if (t == 1) {
             //actualizar puntuacion jugador id con puntuacion tesoro tipo 1;
             addTesoro(1);
         } else {
@@ -205,16 +204,16 @@ public class ModeloServidor {
      * @param mensaje
      * @throws IOException
      */
-    public void gameOver(int idJugador, String mensaje) throws IOException{
-        String cabecera="ERR";
-        String contenido=idJugador+";"+mensaje;
-        enviarMensaje(cabecera+";"+contenido);
+    public void gameOver(int idJugador, String mensaje) throws IOException {
+        String cabecera = "ERR";
+        String contenido = idJugador + ";" + mensaje;
+        enviarMensaje(cabecera + ";" + contenido);
     }
 
     private void distancia(int id, int coordenadaXInicial, int coordenadaYInicial, int coordenadaXFinal, int coordenadaYFinal) throws IOException {
-        String cabecera="MOV";
-        String contenido=id+";"+coordenadaXInicial+";"+coordenadaYInicial+";"+coordenadaXFinal+";"+coordenadaYFinal;
-        enviarMensaje(cabecera+";"+contenido);
+        String cabecera = "MOV";
+        String contenido = id + ";" + coordenadaXInicial + ";" + coordenadaYInicial + ";" + coordenadaXFinal + ";" + coordenadaYFinal;
+        enviarMensaje(cabecera + ";" + contenido);
     }
 
     /**
@@ -229,16 +228,18 @@ public class ModeloServidor {
                 while (true) {
                     try {
                         Thread.sleep(200);
-                    } catch (InterruptedException e) {}
+                    } catch (InterruptedException e) {
+                    }
                     // En cada Thread recorre los jugadores, actualizando sus posiciones
                     for (Jugador j : jugadores) {
                         try {
                             actualizarPosicion(j.getIdCliente());
                             tesoroComido(j.getIdCliente());
-                        } catch (Exception e) {}
+                        } catch (Exception e) {
+                        }
                     }
                     mostrarTesoro++;
-                    if (mostrarTesoro==10){
+                    if (mostrarTesoro == 10) {
                         try {
                             pintarTesoro(tesoroTemporal.getCoordenadaX(), tesoroTemporal.getCoordenadaY(), 0);
                         } catch (IOException ex) {
@@ -252,6 +253,7 @@ public class ModeloServidor {
                     }
                 }
             }
+
             // Si el jugador se ha movido, se actualiza su posición
             private void actualizarPosicion(int idJugador) throws IOException {
                 int xi = ((Punto) jugadores.get(idJugador).getSerpiente().getFirst()).getCoordenadaX();
@@ -263,7 +265,7 @@ public class ModeloServidor {
                 // Si se choca contra si mismo entonces para
                 if (ll.contains(jugadores.get(idJugador).getSerpiente().getFirst())) {
                     gameOver(idJugador, "Choque consigo mismo");
-                // Si se choca contra otros jugadores entonces para
+                    // Si se choca contra otros jugadores entonces para
                 } else if (chocaContraJugador(idJugador)) {
                     gameOver(idJugador, "Choque con otro jugador");
                 } else {
@@ -271,31 +273,35 @@ public class ModeloServidor {
                     jugadores.get(idJugador).getSerpiente().removeLast();
                     // Controlamos que se salga del tablero
                     puntuacion(idJugador);
-                    int direccion=jugadores.get(idJugador).getDireccion();
+                    int direccion = jugadores.get(idJugador).getDireccion();
                     switch (direccion) {
                         case (0):
-                            if (yi>0)
+                            if (yi > 0) {
                                 yi--;
-                            else
+                            } else {
                                 gameOver(idJugador, "Salida del tablero");
+                            }
                             break;
                         case (1):
-                            if (xi>0)
+                            if (xi > 0) {
                                 xi--;
-                            else
+                            } else {
                                 gameOver(idJugador, "Salida del tablero");
+                            }
                             break;
                         case (2):
-                            if (yi<longitudY)
+                            if (yi < longitudY) {
                                 yi++;
-                            else
+                            } else {
                                 gameOver(idJugador, "Salida del tablero");
+                            }
                             break;
                         case (3):
-                            if (xf<longitudX)
+                            if (xf < longitudX) {
                                 xi++;
-                            else
+                            } else {
                                 gameOver(idJugador, "Salida del tablero");
+                            }
                             break;
                     }
                     jugadores.get(idJugador).getSerpiente().addFirst(new Punto(xi, yi));
@@ -304,19 +310,24 @@ public class ModeloServidor {
             }
 
             private boolean chocaContraJugador(int idJugador) {
-                boolean chocar=false;
-                for (Jugador j:jugadores)
-                    if (j.getIdCliente()!=idJugador&&!chocar)
-                        if (j.getSerpiente().contains(jugadores.get(idJugador).getSerpiente().getFirst()))
-                            chocar=true;
+                boolean chocar = false;
+                for (Jugador j : jugadores) {
+                    if (j.getIdCliente() != idJugador && !chocar) {
+                        if (j.getSerpiente().contains(jugadores.get(idJugador).getSerpiente().getFirst())) {
+                            chocar = true;
+                        }
+                    }
+                }
                 return chocar;
             }
 
             private void tesoroComido(int idJugador) throws IOException {
-                if (tesoro.equals((Punto)jugadores.get(idJugador).getSerpiente().getFirst()))
+                if (tesoro.equals((Punto) jugadores.get(idJugador).getSerpiente().getFirst())) {
                     ModeloServidor.this.tesoroComido(1, idJugador);
-                if (tesoroTemporal.equals((Punto)jugadores.get(idJugador).getSerpiente().getFirst()))
+                }
+                if (tesoroTemporal.equals((Punto) jugadores.get(idJugador).getSerpiente().getFirst())) {
                     ModeloServidor.this.tesoroComido(2, idJugador);
+                }
             }
         };
     }
