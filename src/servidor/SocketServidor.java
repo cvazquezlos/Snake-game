@@ -30,6 +30,7 @@ public class SocketServidor {
         while (!modeloServidor.esTerminado()) {
             Socket socket = svrSocket.accept();
             System.out.println("Cliente " + idClient + " conectado");
+            serverView.actualizaLista(idClient);
             modeloServidor.añadeJugador(idClient, socket);
             Thread t = new HebraServidor(socket, idClient, modeloServidor);
             t.start();
