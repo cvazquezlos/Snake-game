@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class ServerView extends javax.swing.JFrame {
 
     private ModeloServidor modelo;
-    private ArrayList<String> jugadores;
+    private ArrayList<Integer> jugadores;
     private DefaultTableModel model;
 
     /**
@@ -23,7 +23,7 @@ public class ServerView extends javax.swing.JFrame {
      */
     public ServerView(ModeloServidor modelo) {
         this.modelo = modelo;
-        jugadores = new ArrayList<String>();
+        jugadores = new ArrayList<Integer>();
         initComponents();
         estadoServidor.setText("Actualmente hay 0 jugadores conectados.");
         model = (DefaultTableModel) tablaJugadores.getModel();
@@ -34,8 +34,6 @@ public class ServerView extends javax.swing.JFrame {
 
         acabar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listaJugadores = new javax.swing.JList<>();
         estadoServidor = new java.awt.Label();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaJugadores = new javax.swing.JTable();
@@ -58,8 +56,6 @@ public class ServerView extends javax.swing.JFrame {
         jLabel1.setText("Servidor");
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
-        jScrollPane1.setViewportView(listaJugadores);
-
         estadoServidor.setText("label1");
 
         tablaJugadores.setModel(new javax.swing.table.DefaultTableModel(
@@ -79,29 +75,29 @@ public class ServerView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(estadoServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(acabar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(estadoServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(acabar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(estadoServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(acabar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -113,17 +109,29 @@ public class ServerView extends javax.swing.JFrame {
 
     @SuppressWarnings("empty-statement")
     public void actualizaTabla(int idJugador, int puntuacion) {
-        String nombreJugador = String.valueOf(idJugador);
-        String puntuacionJugador = String.valueOf(puntuacion);
-        Object[] fila = {nombreJugador, puntuacionJugador};
-        jugadores.add("Jugador "+String.valueOf(idJugador));
-        String[] es = new String[jugadores.size()];
-        for (int i = 0; i < es.length; i++) {
-            es[i] = jugadores.get(i);
-        }
-        listaJugadores.setListData(es);
+        Object[] fila = {("Jugador " + String.valueOf(idJugador)), String.valueOf(puntuacion)};
+        jugadores.add(idJugador);
         model.addRow(fila);
-        estadoServidor.setText("Actualmente hay "+es.length+" jugadores conectados.");
+        estadoServidor.setText("Actualmente hay " + jugadores.size() + " jugadores conectados.");
+    }
+
+    public void actualizaPuntuacion(int idJugador, int nuevaPuntuacion) {
+        if (buscaJugador(idJugador) == -1) {
+            actualizaTabla(idJugador, 0);
+        } else {
+            Object[] filaActualizada = {("Jugador " + String.valueOf(idJugador)), String.valueOf(nuevaPuntuacion)};
+            model.removeRow(idJugador);
+            model.insertRow(idJugador, filaActualizada);
+        }
+    }
+
+    private int buscaJugador(int idJugador) {
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (jugadores.get(i) == idJugador) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private void acabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acabarActionPerformed
@@ -142,9 +150,7 @@ public class ServerView extends javax.swing.JFrame {
     private javax.swing.JButton acabar;
     private java.awt.Label estadoServidor;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList<String> listaJugadores;
     private javax.swing.JTable tablaJugadores;
     // End of variables declaration//GEN-END:variables
 }

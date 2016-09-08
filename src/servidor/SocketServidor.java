@@ -3,12 +3,15 @@ package servidor;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
  * @author c.vazquezlos
  */
 public class SocketServidor {
+
+    private static ArrayList<Integer> jugadores;
 
     /**
      *
@@ -25,12 +28,15 @@ public class SocketServidor {
         serverView.setLocationRelativeTo(null);
         serverView.setVisible(true);
         System.out.println("");
+        modeloServidor.setVistaServidor(serverView);
+        jugadores = new ArrayList<Integer>();
         // Cuando se genera un nuevo cliente se crea una nueva hebra
         int idClient = 0;
         while (!modeloServidor.esTerminado()) {
             Socket socket = svrSocket.accept();
             System.out.println("Cliente " + idClient + " conectado");
             serverView.actualizaTabla(idClient, 0);
+            jugadores.add(idClient);
             modeloServidor.añadeJugador(idClient, socket);
             Thread t = new HebraServidor(socket, idClient, modeloServidor);
             t.start();

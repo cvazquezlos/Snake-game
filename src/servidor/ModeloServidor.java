@@ -22,6 +22,7 @@ public class ModeloServidor {
     private Punto tesoroTemporal;
     Thread hilo = iniciar();
     private boolean terminar;
+    private ServerView vistaServidor;
 
     /**
      *
@@ -36,10 +37,14 @@ public class ModeloServidor {
         this.longitudY = longitudY;
         // Genera un tesoro en una posición aleatoria
         Random rnd = new Random();
-        this.tesoro = new Punto(rnd.nextInt(this.longitudX-1), rnd.nextInt(this.longitudY-1));
+        this.tesoro = new Punto(rnd.nextInt(this.longitudX - 1), rnd.nextInt(this.longitudY - 1));
         this.tesoroTemporal = new Punto();
         // Comienza el hilo
         hilo.start();
+    }
+
+    public void setVistaServidor(ServerView vistaServidor) {
+        this.vistaServidor = vistaServidor;
     }
 
     /**
@@ -163,6 +168,7 @@ public class ModeloServidor {
         String cabecera = "PTS";
         String cuerpo = Integer.toString((jugadores.get(idJugador).getSerpiente().size()) * 10);
         enviarMensaje(cabecera + ";" + cuerpo);
+        vistaServidor.actualizaPuntuacion(idJugador, (jugadores.get(idJugador).getSerpiente().size()) * 10);
     }
 
     private void addTesoro(int tesoroAAñadir) throws IOException {
