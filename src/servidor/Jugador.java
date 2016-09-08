@@ -100,6 +100,10 @@ public class Jugador {
         this.idCliente = idCliente;
     }
 
+    public void setNick(String nick){
+        this.nick=nick;
+    }
+
     /**
      * Permite asignarle una dirección (si no la tiene).
      *

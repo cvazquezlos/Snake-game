@@ -109,24 +109,33 @@ public class ServerView extends javax.swing.JFrame {
 
     @SuppressWarnings("empty-statement")
     public void actualizaTabla(int idJugador, int puntuacion, String nickJugador) {
-        Object[] fila = {("Jugador " + String.valueOf(idJugador)), String.valueOf(puntuacion)};
+        if (esNickBasico(nickJugador)) {
+            Object[] fila = {("Jugador " + String.valueOf(idJugador)), String.valueOf(puntuacion)};
+            model.addRow(fila);
+        } else {
+            Object[] fila = {nickJugador, String.valueOf(puntuacion)};
+            model.addRow(fila);
+        }
         jugadores.add(idJugador);
-        model.addRow(fila);
         estadoServidor.setText("Actualmente hay " + jugadores.size() + " jugadores conectados.");
     }
 
     public void actualizaPuntuacion(int idJugador, int nuevaPuntuacion, String nickJugador) {
         if (buscaJugador(idJugador) == -1) {
             actualizaTabla(idJugador, 0, nickJugador);
-        } else {
+        } else if (esNickBasico(nickJugador)) {
             Object[] filaActualizada = {("Jugador " + String.valueOf(idJugador)), String.valueOf(nuevaPuntuacion)};
+            model.removeRow(idJugador);
+            model.insertRow(idJugador, filaActualizada);
+        } else {
+            Object[] filaActualizada = {nickJugador, String.valueOf(nuevaPuntuacion)};
             model.removeRow(idJugador);
             model.insertRow(idJugador, filaActualizada);
         }
     }
 
-    private boolean esNickBasico(String nick){
-        return nick=="Jugador";
+    private boolean esNickBasico(String nick) {
+        return nick == "Jugador";
     }
 
     private int buscaJugador(int idJugador) {

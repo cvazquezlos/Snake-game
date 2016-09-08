@@ -76,6 +76,9 @@ public class HebraServidor extends Thread {
                             Logger.getLogger(HebraServidor.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         break;
+                    case ("DAT"):
+                        modeloServidor.setNickEnJugador(contenidos[1], idClient);
+                        break;
                 }
             }
         } catch (IOException ex) {

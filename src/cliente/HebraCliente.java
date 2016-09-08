@@ -34,7 +34,7 @@ public class HebraCliente extends Thread {
     }
 
     /**
-     * Redefinición del método Thread asociado a la hebra.
+     * Redefinición del método Thread asociado a la hebra. Interpreta los mensajes enviados por el servidor.
      */
     @Override
     public void run() {

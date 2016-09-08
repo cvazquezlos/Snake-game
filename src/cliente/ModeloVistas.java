@@ -126,6 +126,10 @@ public class ModeloVistas extends Observable {
         enviarMensaje("DIR;ABAJO");
     }
 
+    public void enviarDatos() throws IOException{
+        enviarMensaje("DAT;"+nickJugador);
+    }
+
     /**
      * Movimiento hacia la izquierda.
      *

@@ -230,6 +230,12 @@ public class ModeloServidor {
         enviarMensaje(cabecera + ";" + contenido);
     }
 
+    public void setNickEnJugador(String nick, int idJugador){
+        for (int i=0; i<jugadores.size(); i++)
+            if (jugadores.get(i).getIdCliente()==idJugador)
+                jugadores.get(i).setNick(nick);
+    }
+
     /**
      *
      * @return
