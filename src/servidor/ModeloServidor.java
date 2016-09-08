@@ -112,6 +112,14 @@ public class ModeloServidor {
         return terminar;
     }
 
+    public String buscaNickJugador(int idJugador){
+        String resultado="";
+        for (int i=0; i<jugadores.size(); i++)
+            if (jugadores.get(i).getIdCliente()==idJugador)
+                resultado=jugadores.get(i).getNick();
+        return resultado;
+    }
+
     /**
      *
      * @param nuevaDir
@@ -168,7 +176,7 @@ public class ModeloServidor {
         String cabecera = "PTS";
         String cuerpo = Integer.toString((jugadores.get(idJugador).getSerpiente().size()) * 10);
         enviarMensaje(cabecera + ";" + cuerpo);
-        vistaServidor.actualizaPuntuacion(idJugador, (jugadores.get(idJugador).getSerpiente().size()) * 10);
+        vistaServidor.actualizaPuntuacion(idJugador, ((jugadores.get(idJugador).getSerpiente().size()) * 10), buscaNickJugador(idJugador));
     }
 
     private void addTesoro(int tesoroAAñadir) throws IOException {

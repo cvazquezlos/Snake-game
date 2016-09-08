@@ -21,6 +21,8 @@ public class Jugador {
     private Socket socket;
     // Dirección en la que se mueve la serpiente
     private int direccion;
+    // Nick del jugador
+    private String nick;
     private DataOutputStream streamOut;
 
     /**
@@ -56,6 +58,10 @@ public class Jugador {
      */
     public int getIdCliente() {
         return idCliente;
+    }
+
+    public String getNick(){
+        return nick;
     }
 
     /**

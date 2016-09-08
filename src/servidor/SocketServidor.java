@@ -11,8 +11,6 @@ import java.util.ArrayList;
  */
 public class SocketServidor {
 
-    private static ArrayList<Integer> jugadores;
-
     /**
      *
      * @param args
@@ -29,14 +27,12 @@ public class SocketServidor {
         serverView.setVisible(true);
         System.out.println("");
         modeloServidor.setVistaServidor(serverView);
-        jugadores = new ArrayList<Integer>();
         // Cuando se genera un nuevo cliente se crea una nueva hebra
         int idClient = 0;
         while (!modeloServidor.esTerminado()) {
             Socket socket = svrSocket.accept();
             System.out.println("Cliente " + idClient + " conectado");
-            serverView.actualizaTabla(idClient, 0);
-            jugadores.add(idClient);
+            serverView.actualizaTabla(idClient, 0, modeloServidor.buscaNickJugador(idClient));
             modeloServidor.añadeJugador(idClient, socket);
             Thread t = new HebraServidor(socket, idClient, modeloServidor);
             t.start();

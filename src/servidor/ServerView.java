@@ -108,21 +108,25 @@ public class ServerView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     @SuppressWarnings("empty-statement")
-    public void actualizaTabla(int idJugador, int puntuacion) {
+    public void actualizaTabla(int idJugador, int puntuacion, String nickJugador) {
         Object[] fila = {("Jugador " + String.valueOf(idJugador)), String.valueOf(puntuacion)};
         jugadores.add(idJugador);
         model.addRow(fila);
         estadoServidor.setText("Actualmente hay " + jugadores.size() + " jugadores conectados.");
     }
 
-    public void actualizaPuntuacion(int idJugador, int nuevaPuntuacion) {
+    public void actualizaPuntuacion(int idJugador, int nuevaPuntuacion, String nickJugador) {
         if (buscaJugador(idJugador) == -1) {
-            actualizaTabla(idJugador, 0);
+            actualizaTabla(idJugador, 0, nickJugador);
         } else {
             Object[] filaActualizada = {("Jugador " + String.valueOf(idJugador)), String.valueOf(nuevaPuntuacion)};
             model.removeRow(idJugador);
             model.insertRow(idJugador, filaActualizada);
         }
+    }
+
+    private boolean esNickBasico(String nick){
+        return nick=="Jugador";
     }
 
     private int buscaJugador(int idJugador) {
