@@ -91,6 +91,7 @@ public class ModeloVistas extends Observable {
         enviarMensaje("CON;");
         hebra = new HebraCliente(socket, this);
         hebra.start();
+        enviarDatos();
     }
 
     /**
