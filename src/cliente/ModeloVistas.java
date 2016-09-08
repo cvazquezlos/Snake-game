@@ -24,6 +24,7 @@ public class ModeloVistas extends Observable {
     private DataOutputStream streamOut;
     private InterfazRed iuRed = new InterfazRed(this);
     private String[] resultados;
+    private String nickJugador;
 
     /**
      * Lanza las vistas asociadas a él y recibe los movimientos del controlador.
@@ -85,6 +86,7 @@ public class ModeloVistas extends Observable {
         iuRed.dispose();
         socket = new Socket(iuRed.getDireccionIp(), iuRed.getPuerto());
         resultados = iuRed.getResultados();
+        nickJugador = iuRed.getNick();
         streamOut = new DataOutputStream(socket.getOutputStream());
         enviarMensaje("CON;");
         hebra = new HebraCliente(socket, this);
