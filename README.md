@@ -1,8 +1,9 @@
-# (ENG) Snake game (ES) Juego de la serpiente
-<b>(ENG)</b>
-The snake game has been developed in Java using Design Patterns. This project is a simply, funny and classic game developed more than
-40 years ago by Nokia.
-<br><br><br>
-<b>(ES)</b>
-El juego de la serpiente ha sido desarrollado en Java usando Patrones de Diseño. Este proyecto es un juego sencillo, divertido y clásico
-que fue desarrollado hace más de 40 años por Nokia.
+# Snake game
+
+## Castellano ![CastellanoLenguaje](media/es.png)
+
+Simulación del famoso juego desarrollado por Gremlin en los mediados de la década de los 70 y que fue añadido más tarde, en 1998, en los móviles Nokia. Esta implementación se encuentra desarrollada en el lenguaje de Java y como pilar fundamental de esta implementación son los Patrones de Diseño utilizados.
+
+Consta de un conjunto de clases divididas en la parte del Cliente y la parte del Servidor. Cada uno de ellos posee un socket (el del servidor acepta las conexiones y el del cliente las solicita), una hebra que recibe los mensajes del servidor y del cliente y una clase que los envía (streamIn y streamOut, en Cliente y Servidor). La relación entre todas las clases se encuentra en el siguiente dibujo, el cual realicé al comenzar con el proyecto:
+
+![DiseñoJuego](media/diseño.jpg)
