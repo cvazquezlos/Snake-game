@@ -112,11 +112,13 @@ public class ModeloServidor {
         return terminar;
     }
 
-    public String buscaNickJugador(int idJugador){
-        String resultado="";
-        for (int i=0; i<jugadores.size(); i++)
-            if (jugadores.get(i).getIdCliente()==idJugador)
-                resultado=jugadores.get(i).getNick();
+    public String buscaNickJugador(int idJugador) {
+        String resultado = "";
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (jugadores.get(i).getIdCliente() == idJugador) {
+                resultado = jugadores.get(i).getNick();
+            }
+        }
         return resultado;
     }
 
@@ -230,10 +232,12 @@ public class ModeloServidor {
         enviarMensaje(cabecera + ";" + contenido);
     }
 
-    public void setNickEnJugador(String nick, int idJugador){
-        for (int i=0; i<jugadores.size(); i++)
-            if (jugadores.get(i).getIdCliente()==idJugador)
+    public void setNickEnJugador(String nick, int idJugador) {
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (jugadores.get(i).getIdCliente() == idJugador) {
                 jugadores.get(i).setNick(nick);
+            }
+        }
     }
 
     /**

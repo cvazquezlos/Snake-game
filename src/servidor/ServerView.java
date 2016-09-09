@@ -56,7 +56,7 @@ public class ServerView extends javax.swing.JFrame {
         jLabel1.setText("Servidor");
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
-        estadoServidor.setText("label1");
+        estadoServidor.setText("Default");
 
         tablaJugadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
