@@ -135,7 +135,7 @@ public class ServerView extends javax.swing.JFrame {
     }
 
     private boolean esNickBasico(String nick) {
-        return nick == "Jugador";
+        return nick.equals("Jugador");
     }
 
     private int buscaJugador(int idJugador) {
