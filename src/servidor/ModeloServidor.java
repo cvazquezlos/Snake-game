@@ -120,6 +120,7 @@ public class ModeloServidor {
         int posicionCliente = buscaPosicionJugador(idJugador);
         jugadores.get(posicionCliente).getSocket().close();
         jugadores.remove(posicionCliente);
+        vistaServidor.eliminaFila(posicionCliente);
     }
 
     public String buscaNickJugador(int idJugador) {

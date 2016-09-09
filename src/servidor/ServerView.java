@@ -147,6 +147,10 @@ public class ServerView extends javax.swing.JFrame {
         return -1;
     }
 
+    public void eliminaFila(int posicion){
+        model.removeRow(posicion);
+    }
+
     private void acabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acabarActionPerformed
         //modelo.finalizaConexion();
         System.exit(0);

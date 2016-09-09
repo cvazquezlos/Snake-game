@@ -79,8 +79,13 @@ public class ModeloVistas extends Observable {
     }
     */
 
-    public void finalizar() throws IOException{
+    public void finalizar() throws IOException, InterruptedException{
         enviarMensaje("FIN;" + Integer.toString(idCliente));
+        tablero.dispose();
+        puntuacion.dispose();
+        streamOut.close();
+        iuRed.dispose();
+        this.socket.close();
     }
 
     /**
