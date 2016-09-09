@@ -67,14 +67,20 @@ public class ModeloVistas extends Observable {
      * @throws IOException
      * @throws InterruptedException
      */
+    /*
     public void finalizar() throws IOException, InterruptedException {
+        enviarMensaje("FIN;" + Integer.toString(idCliente));
         tablero.dispose();
         puntuacion.dispose();
-        enviarMensaje("FIN;" + Integer.toString(idCliente));
         hebra.acabar();
         streamOut.close();
         socket.close();
         System.exit(0);
+    }
+    */
+
+    public void finalizar() throws IOException{
+        enviarMensaje("FIN;" + Integer.toString(idCliente));
     }
 
     /**
@@ -229,7 +235,7 @@ public class ModeloVistas extends Observable {
      */
     private void enviarMensaje(String mensaje) throws IOException {
         // Muestra el mensaje por consola para ver si se ha enviado correctamente
-        System.out.println(mensaje + " al servidor ");
+        System.out.println(mensaje + " al servidor.");
         streamOut.writeBytes(mensaje + "\n");
         streamOut.flush();
     }

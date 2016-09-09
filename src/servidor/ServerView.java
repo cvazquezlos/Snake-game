@@ -148,15 +148,9 @@ public class ServerView extends javax.swing.JFrame {
     }
 
     private void acabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acabarActionPerformed
-        try {
-            modelo.finalizaConexion();
-            System.exit(0);
-            this.dispose();
-        } catch (IOException ex) {
-            Logger.getLogger(ServerView.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ServerView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //modelo.finalizaConexion();
+        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_acabarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

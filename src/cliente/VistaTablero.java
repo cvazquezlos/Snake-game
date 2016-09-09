@@ -114,13 +114,7 @@ public class VistaTablero extends javax.swing.JFrame implements Observer {
     }
 
     private void jButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarActionPerformed
-        try {
-            modelo.finalizar();
-        } catch (IOException ex) {
-            Logger.getLogger(VistaTablero.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(VistaTablero.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        modelo.finalizar();
     }//GEN-LAST:event_jButtonFinalizarActionPerformed
 
 

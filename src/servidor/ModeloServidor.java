@@ -94,6 +94,7 @@ public class ModeloServidor {
      * @throws IOException
      * @throws InterruptedException
      */
+    /*
     public void finalizaConexion() throws IOException, InterruptedException {
         String cabecera = "FIN";
         for (int i = 0; i < jugadores.size(); i++) {
@@ -101,9 +102,12 @@ public class ModeloServidor {
             jugadores.get(i).getStreamOut().close();
             jugadores.get(i).getSocket().close();
         }
+        for (int i = 0; i < jugadores.size(); i++){
+            jugadores.remove(i);
+        }
         this.terminar = true;
     }
-
+     */
     /**
      *
      * @return
@@ -112,14 +116,27 @@ public class ModeloServidor {
         return terminar;
     }
 
+    public void finalizaCliente(int idJugador) throws IOException {
+        int posicionCliente = buscaPosicionJugador(idJugador);
+        jugadores.get(posicionCliente).getSocket().close();
+        jugadores.remove(posicionCliente);
+    }
+
     public String buscaNickJugador(int idJugador) {
-        String resultado = "";
+        if (buscaPosicionJugador(idJugador) != -1) {
+            return jugadores.get(buscaPosicionJugador(idJugador)).getNick();
+        } else {
+            return "";
+        }
+    }
+
+    private int buscaPosicionJugador(int idJugador) {
         for (int i = 0; i < jugadores.size(); i++) {
             if (jugadores.get(i).getIdCliente() == idJugador) {
-                resultado = jugadores.get(i).getNick();
+                return i;
             }
         }
-        return resultado;
+        return -1;
     }
 
     /**

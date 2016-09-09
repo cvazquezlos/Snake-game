@@ -69,6 +69,11 @@ public class HebraServidor extends Thread {
                         modeloServidor.cambiarDireccion(contenidos[1], idClient);
                         break;
                     case ("FIN"):
+                        // Finaliza la conexión con el cliente que lo ha solicitado
+                        modeloServidor.finalizaCliente(Integer.valueOf(contenidos[1]));
+                        break;
+                        /*
+                    case ("FIN"):
                         try {
                             // Si ha recibido un FIN, entonces ordena el corte de conexión con el cliente
                             modeloServidor.finalizaConexion();
@@ -76,6 +81,7 @@ public class HebraServidor extends Thread {
                             Logger.getLogger(HebraServidor.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         break;
+*/
                     case ("DAT"):
                         modeloServidor.setNickEnJugador(contenidos[1], idClient);
                         break;
