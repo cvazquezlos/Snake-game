@@ -11,6 +11,8 @@ import java.util.ArrayList;
  */
 public class SocketServidor {
 
+    private static ArrayList<Jugador> jugadores;
+
     /**
      *
      * @param args
@@ -36,8 +38,10 @@ public class SocketServidor {
             modeloServidor.añadeJugador(idClient, socket);
             Thread t = new HebraServidor(socket, idClient, modeloServidor);
             t.start();
+            jugadores = modeloServidor.getArrayJugadores();
             idClient++;
         }
         System.out.println("Servidor finalizado");
+        svrSocket.close();
     }
 }

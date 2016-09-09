@@ -61,24 +61,6 @@ public class ModeloVistas extends Observable {
         pp.setVisible(true);
     }
 
-    /**
-     * Finaliza la ejecución del cliente.
-     *
-     * @throws IOException
-     * @throws InterruptedException
-     */
-    /*
-    public void finalizar() throws IOException, InterruptedException {
-        enviarMensaje("FIN;" + Integer.toString(idCliente));
-        tablero.dispose();
-        puntuacion.dispose();
-        hebra.acabar();
-        streamOut.close();
-        socket.close();
-        System.exit(0);
-    }
-    */
-
     public void finalizar() throws IOException, InterruptedException{
         enviarMensaje("FIN;" + Integer.toString(idCliente));
         hebra.acabar();
@@ -105,22 +87,6 @@ public class ModeloVistas extends Observable {
         hebra.start();
         enviarDatos();
     }
-
-    /**
-     * El servidor corta la conexión con el cliente.
-     *
-     * @param id
-     * @throws IOException
-     */
-    /*
-    public void finalizaCliente(String id) throws IOException {
-        int idJugador = Integer.parseInt(id);
-        this.socket.close();
-        tablero.dispose();
-        puntuacion.dispose();
-        streamOut.close();
-        iuRed.dispose();
-    }*/
 
     /**
      * Movimiento hacia arriba.

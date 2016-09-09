@@ -85,5 +85,6 @@ public class HebraCliente extends Thread {
         this.fin = true;
         Thread.sleep(100);
         socket.close();
+        streamIn.close();
     }
 }

@@ -23,6 +23,7 @@ public class ModeloServidor {
     Thread hilo = iniciar();
     private boolean terminar;
     private ServerView vistaServidor;
+    private SocketServidor socketServidor;
 
     /**
      *
@@ -114,6 +115,10 @@ public class ModeloServidor {
      */
     public boolean esTerminado() {
         return terminar;
+    }
+
+    public ArrayList<Jugador> getArrayJugadores(){
+        return jugadores;
     }
 
     public void finalizaCliente(int idJugador) throws IOException {
