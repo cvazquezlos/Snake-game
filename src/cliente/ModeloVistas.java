@@ -81,11 +81,12 @@ public class ModeloVistas extends Observable {
 
     public void finalizar() throws IOException, InterruptedException{
         enviarMensaje("FIN;" + Integer.toString(idCliente));
+        hebra.acabar();
         tablero.dispose();
         puntuacion.dispose();
-        streamOut.close();
         iuRed.dispose();
-        this.socket.close();
+        streamOut.close();
+        socket.close();
     }
 
     /**
@@ -111,6 +112,7 @@ public class ModeloVistas extends Observable {
      * @param id
      * @throws IOException
      */
+    /*
     public void finalizaCliente(String id) throws IOException {
         int idJugador = Integer.parseInt(id);
         this.socket.close();
@@ -118,7 +120,7 @@ public class ModeloVistas extends Observable {
         puntuacion.dispose();
         streamOut.close();
         iuRed.dispose();
-    }
+    }*/
 
     /**
      * Movimiento hacia arriba.

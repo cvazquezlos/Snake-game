@@ -62,7 +62,7 @@ public class HebraCliente extends Thread {
                         vistas.puntos(info[1]);
                         break;
                     case ("ERR"):
-                        vistas.finalizaCliente(info[1]);
+                        //vistas.finalizar(info[1]);
                         break;
                 }
             }
@@ -84,6 +84,5 @@ public class HebraCliente extends Thread {
         Thread.sleep(100);
         streamIn.close();
         socket.close();
-        vistas.finalizar();
     }
 }

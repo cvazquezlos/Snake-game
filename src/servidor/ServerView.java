@@ -149,6 +149,8 @@ public class ServerView extends javax.swing.JFrame {
 
     public void eliminaFila(int posicion){
         model.removeRow(posicion);
+        jugadores.remove(posicion);
+        estadoServidor.setText("Actualmente hay " + jugadores.size() + " jugadores conectados.");
     }
 
     private void acabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acabarActionPerformed

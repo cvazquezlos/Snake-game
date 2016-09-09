@@ -119,6 +119,7 @@ public class ModeloServidor {
     public void finalizaCliente(int idJugador) throws IOException {
         int posicionCliente = buscaPosicionJugador(idJugador);
         jugadores.get(posicionCliente).getSocket().close();
+
         jugadores.remove(posicionCliente);
         vistaServidor.eliminaFila(posicionCliente);
     }
