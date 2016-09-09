@@ -29,7 +29,7 @@ public class HebraCliente extends Thread {
     HebraCliente(Socket socket, ModeloVistas vistas) throws IOException {
         this.vistas = vistas;
         this.socket = socket;
-        this.fin = true;
+        this.fin = false;
         streamIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
@@ -40,30 +40,32 @@ public class HebraCliente extends Thread {
     @Override
     public void run() {
         try {
-            while (fin) {
+            while (!fin) {
                 String mensaje = streamIn.readLine();
-                System.out.println("del servidor: " + mensaje);
-                String[] info = mensaje.split(";");
-                String cabecera = info[0];
-                switch (cabecera) {
-                    case ("IDC"):
-                        vistas.empezar(info[1], info[2], info[3]);
-                        break;
-                    case ("FIN"):
-                        this.acabar();
-                        break;
-                    case ("TSR"):
-                        vistas.muestraTesoro(info[1], info[2], info[3]);
-                        break;
-                    case ("MOV"):
-                        vistas.mover(info[1], info[2], info[3], info[4], info[5]);
-                        break;
-                    case ("PTS"):
-                        vistas.puntos(info[1]);
-                        break;
-                    case ("ERR"):
-                        //vistas.finalizar(info[1]);
-                        break;
+                if (mensaje!=null){
+                    System.out.println("del servidor: " + mensaje);
+                    String[] info = mensaje.split(";");
+                    String cabecera = info[0];
+                    switch (cabecera) {
+                        case ("IDC"):
+                            vistas.empezar(info[1], info[2], info[3]);
+                            break;
+                        case ("FIN"):
+                            this.acabar();
+                            break;
+                        case ("TSR"):
+                            vistas.muestraTesoro(info[1], info[2], info[3]);
+                            break;
+                        case ("MOV"):
+                            vistas.mover(info[1], info[2], info[3], info[4], info[5]);
+                            break;
+                        case ("PTS"):
+                            vistas.puntos(info[1]);
+                            break;
+                        case ("ERR"):
+                            //vistas.finalizar(info[1]);
+                            break;
+                    }
                 }
             }
         } catch (IOException ex) {
@@ -80,9 +82,8 @@ public class HebraCliente extends Thread {
      * @throws InterruptedException
      */
     public void acabar() throws IOException, InterruptedException {
-        this.fin = false;
+        this.fin = true;
         Thread.sleep(100);
-        streamIn.close();
         socket.close();
     }
 }
