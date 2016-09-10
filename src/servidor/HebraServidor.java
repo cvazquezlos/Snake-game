@@ -47,11 +47,11 @@ public class HebraServidor extends Thread {
     @Override
     public void run() {
         try {
-            // Creamos los streams para la lectura y escritura de objetos a traves de la conexion
-            streamIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String mensaje;
             // Hasta que no se indique que pare, itera
             while (fin) {
+                // Creamos los streams para la lectura y escritura de objetos a traves de la conexion
+                streamIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                String mensaje;
                 // Escuchamos el mensaje enviado por el socket del cliente
                 mensaje = streamIn.readLine();
                 // Fragmentamos el contenido del mensaje
@@ -73,6 +73,7 @@ public class HebraServidor extends Thread {
                         modeloServidor.finalizaCliente(Integer.valueOf(contenidos[1]));
                         this.parar();
                         streamIn.close();
+                        socket.close();
                         break;
                     case ("DAT"):
                         modeloServidor.setNickEnJugador(contenidos[1], idClient);

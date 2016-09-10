@@ -83,8 +83,8 @@ public class HebraCliente extends Thread {
      */
     public void acabar() throws IOException, InterruptedException {
         this.fin = true;
-        Thread.sleep(100);
-        socket.close();
+        Thread.sleep(1);
         streamIn.close();
+        System.exit(0);
     }
 }

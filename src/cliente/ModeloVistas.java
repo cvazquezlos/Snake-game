@@ -69,6 +69,7 @@ public class ModeloVistas extends Observable {
         iuRed.dispose();
         streamOut.close();
         socket.close();
+        System.exit(0);
     }
 
     /**
@@ -77,10 +78,10 @@ public class ModeloVistas extends Observable {
      * @throws IOException
      */
     public void conectar() throws IOException {
-        iuRed.dispose();
         socket = new Socket(iuRed.getDireccionIp(), iuRed.getPuerto());
         resultados = iuRed.getResultados();
         nickJugador = iuRed.getNick();
+        iuRed.dispose();
         streamOut = new DataOutputStream(socket.getOutputStream());
         enviarMensaje("CON;");
         hebra = new HebraCliente(socket, this);
