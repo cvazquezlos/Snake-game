@@ -71,17 +71,9 @@ public class HebraServidor extends Thread {
                     case ("FIN"):
                         // Finaliza la conexión con el cliente que lo ha solicitado
                         modeloServidor.finalizaCliente(Integer.valueOf(contenidos[1]));
+                        this.parar();
+                        streamIn.close();
                         break;
-                        /*
-                    case ("FIN"):
-                        try {
-                            // Si ha recibido un FIN, entonces ordena el corte de conexión con el cliente
-                            modeloServidor.finalizaConexion();
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(HebraServidor.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        break;
-*/
                     case ("DAT"):
                         modeloServidor.setNickEnJugador(contenidos[1], idClient);
                         break;

@@ -11,11 +11,6 @@ import java.util.ArrayList;
  */
 public class SocketServidor {
 
-    private static ArrayList<Jugador> jugadores;
-    private static ArrayList<Socket> socketJugadores;
-    private static ArrayList<Integer> idJugadores;
-    private static ArrayList<Thread> threadJugadores;
-
     /**
      *
      * @param args
@@ -30,9 +25,6 @@ public class SocketServidor {
         ServerView serverView = new ServerView(modeloServidor);
         serverView.setLocationRelativeTo(null);
         serverView.setVisible(true);
-        idJugadores = new ArrayList<Integer>();
-        socketJugadores = new ArrayList<Socket>();
-        jugadores = new ArrayList<Jugador>();
         System.out.println("");
         modeloServidor.setVistaServidor(serverView);
         // Cuando se genera un nuevo cliente se crea una nueva hebra
@@ -44,34 +36,9 @@ public class SocketServidor {
             modeloServidor.añadeJugador(idClient, socket);
             Thread t = new HebraServidor(socket, idClient, modeloServidor);
             t.start();
-            jugadores = modeloServidor.getArrayJugadores();
-            socketJugadores.add(socket);
-            idJugadores.add(idClient);
-            eliminaJugadoresDesconectados();
             idClient++;
         }
         System.out.println("Servidor finalizado");
         svrSocket.close();
-    }
-
-    private static void eliminaJugadoresDesconectados() throws IOException {
-        for (int i = 0; i < idJugadores.size(); i++) {
-            if (!existeJugador(idJugadores.get(i))) {
-                System.out.println("Jugador "+idJugadores.get(i)+" eliminado.");
-                idJugadores.remove(i);
-                socketJugadores.get(i).close();
-                socketJugadores.remove(i);
-                threadJugadores.remove(i);
-            }
-        }
-    }
-
-    private static boolean existeJugador(int idCliente) {
-        for (int i = 0; i < jugadores.size(); i++) {
-            if (jugadores.get(i).getIdCliente() == idCliente) {
-                return true;
-            }
-        }
-        return false;
     }
 }

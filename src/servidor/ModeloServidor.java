@@ -124,7 +124,6 @@ public class ModeloServidor {
     public void finalizaCliente(int idJugador) throws IOException {
         int posicionCliente = buscaPosicionJugador(idJugador);
         jugadores.get(posicionCliente).getSocket().close();
-
         jugadores.remove(posicionCliente);
         vistaServidor.eliminaFila(posicionCliente);
     }
@@ -169,26 +168,26 @@ public class ModeloServidor {
     }
 
     private void arriba(int idJugador) {
-        if (jugadores.get(idJugador).getDireccion() != 3) {
-            jugadores.get(idJugador).setDireccion(1);
+        if (jugadores.get(buscaPosicionJugador(idJugador)).getDireccion() != 3) {
+            jugadores.get(buscaPosicionJugador(idJugador)).setDireccion(1);
         }
     }
 
     private void abajo(int idJugador) {
-        if (jugadores.get(idJugador).getDireccion() != 1) {
-            jugadores.get(idJugador).setDireccion(3);
+        if (jugadores.get(buscaPosicionJugador(idJugador)).getDireccion() != 1) {
+            jugadores.get(buscaPosicionJugador(idJugador)).setDireccion(3);
         }
     }
 
     private void izquierda(int idJugador) {
-        if (jugadores.get(idJugador).getDireccion() != 2) {
-            jugadores.get(idJugador).setDireccion(0);
+        if (jugadores.get(buscaPosicionJugador(idJugador)).getDireccion() != 2) {
+            jugadores.get(buscaPosicionJugador(idJugador)).setDireccion(0);
         }
     }
 
     private void derecha(int idJugador) {
-        if (jugadores.get(idJugador).getDireccion() != 0) {
-            jugadores.get(idJugador).setDireccion(2);
+        if (jugadores.get(buscaPosicionJugador(idJugador)).getDireccion() != 0) {
+            jugadores.get(buscaPosicionJugador(idJugador)).setDireccion(2);
         }
     }
 
