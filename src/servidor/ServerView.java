@@ -18,6 +18,7 @@ public class ServerView extends javax.swing.JFrame {
     private DefaultTableModel model;
 
     /**
+     * Construye la clase ServerView, una vista que permite finalizar o arrancar la actividad del servidor
      *
      * @param modelo
      */
@@ -107,6 +108,14 @@ public class ServerView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Actualiza la tabla añadiendo nuevas filas
+     *
+     * @param idJugador
+     * @param puntuacion
+     * @param nickJugador
+     */
+    @SuppressWarnings("empty-statement")
     public void actualizaTabla(int idJugador, int puntuacion, String nickJugador) {
         if (esNickBasico(nickJugador)) {
             Object[] fila = {("Jugador " + String.valueOf(idJugador)), String.valueOf(puntuacion)};
@@ -119,6 +128,13 @@ public class ServerView extends javax.swing.JFrame {
         estadoServidor.setText("Actualmente hay " + jugadores.size() + " jugadores conectados.");
     }
 
+    /**
+     * Actualiza la puntuación del jugador
+     *
+     * @param idJugador
+     * @param nuevaPuntuacion
+     * @param nickJugador
+     */
     public void actualizaPuntuacion(int idJugador, int nuevaPuntuacion, String nickJugador) {
         if (buscaJugador(idJugador) == -1) {
             actualizaTabla(idJugador, 0, nickJugador);
@@ -133,10 +149,20 @@ public class ServerView extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Devuelve true si el jugador no cambió su nick. Devuelve false si lo custumizó
+     *
+     * @param nick
+     */
     private boolean esNickBasico(String nick) {
         return nick.equals("Jugador");
     }
 
+    /**
+     * Localiza la posición del jugador dentro del vector de jugadores
+     *
+     * @param idJugador
+     */
     private int buscaJugador(int idJugador) {
         for (int i = 0; i < jugadores.size(); i++) {
             if (jugadores.get(i) == idJugador) {
@@ -146,12 +172,22 @@ public class ServerView extends javax.swing.JFrame {
         return -1;
     }
 
+    /**
+     * Elimina la fila seleccionada
+     *
+     * @param posicion
+     */
     public void eliminaFila(int posicion){
         model.removeRow(posicion);
         jugadores.remove(posicion);
         estadoServidor.setText("Actualmente hay " + jugadores.size() + " jugadores conectados.");
     }
 
+    /**
+     * Finaliza la actividad del servidor
+     *
+     * @param evt
+     */
     private void acabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acabarActionPerformed
         //modelo.finalizaConexion();
         System.exit(0);

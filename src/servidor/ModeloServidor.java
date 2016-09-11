@@ -145,7 +145,7 @@ public class ModeloServidor {
         if (buscaPosicionJugador(idJugador) != -1) {
             return jugadores.get(buscaPosicionJugador(idJugador)).getNick();
         } else {
-            return "Jugador";
+            return "";
         }
     }
 

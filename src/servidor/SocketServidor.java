@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class SocketServidor {
 
     /**
+     * Lanza el servidor: hebra, socket y actividad de los jugadores
      *
      * @param args
      * @throws IOException
@@ -35,8 +36,8 @@ public class SocketServidor {
             serverView.actualizaTabla(idClient, 0, modeloServidor.buscaNickJugador(idClient));
             modeloServidor.añadeJugador(idClient, socket);
             Thread t = new HebraServidor(socket, idClient, modeloServidor);
-            idClient++;
             t.start();
+            idClient++;
         }
         System.out.println("Servidor finalizado");
         svrSocket.close();
