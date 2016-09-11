@@ -63,7 +63,8 @@ public class HebraCliente extends Thread {
                             vistas.puntos(info[1]);
                             break;
                         case ("ERR"):
-                            //vistas.finalizar(info[1]);
+                            this.acabar();
+                            vistas.finalizar();
                             break;
                     }
                 }

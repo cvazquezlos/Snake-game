@@ -74,7 +74,14 @@ public class ModeloServidor {
         String cabecera = "IDC";
         String cuerpo = idJugador + ";" + longitudX + ";" + longitudY;
         enviarMensaje(cabecera + ";" + cuerpo);
+        enviaMensaje(cabecera + ";" + cuerpo, idJugador);
         pintarTesoro(tesoro.getCoordenadaX(), tesoro.getCoordenadaY(), 1);
+    }
+
+    public void enviaMensaje(String mensaje, int idJugador) throws IOException {
+        System.out.println("a cliente " + idJugador + ":" + mensaje);
+        jugadores.get(buscaPosicionJugador(idJugador)).getStreamOut().writeBytes(mensaje + "\n");
+        jugadores.get(buscaPosicionJugador(idJugador)).getStreamOut().flush();
     }
 
     /**
@@ -117,7 +124,7 @@ public class ModeloServidor {
         return terminar;
     }
 
-    public ArrayList<Jugador> getArrayJugadores(){
+    public ArrayList<Jugador> getArrayJugadores() {
         return jugadores;
     }
 
@@ -130,13 +137,13 @@ public class ModeloServidor {
         vistaServidor.eliminaFila(posicionCliente);
     }
 
-    private void reorganizaArrayList(){
+    private void reorganizaArrayList() {
         ArrayList<Jugador> jugadoresAux = new ArrayList<Jugador>();
-        for (int i=0; i<jugadores.size(); i++){
+        for (int i = 0; i < jugadores.size(); i++) {
             jugadoresAux.add(jugadores.get(i));
             jugadores.remove(i);
         }
-        for (int i=0; i<jugadoresAux.size(); i++){
+        for (int i = 0; i < jugadoresAux.size(); i++) {
             jugadores.add(jugadoresAux.get(i));
         }
     }
@@ -219,6 +226,7 @@ public class ModeloServidor {
         int posicion = buscaPosicionJugador(idJugador);
         String cuerpo = Integer.toString((jugadores.get(posicion).getSerpiente().size()) * 10);
         enviarMensaje(cabecera + ";" + cuerpo);
+        enviaMensaje(cabecera + ";" + cuerpo, idJugador);
         vistaServidor.actualizaPuntuacion(idJugador, ((jugadores.get(posicion).getSerpiente().size()) * 10), jugadores.get(posicion).getNick());
     }
 
@@ -265,6 +273,7 @@ public class ModeloServidor {
         String cabecera = "ERR";
         String contenido = idJugador + ";" + mensaje;
         enviarMensaje(cabecera + ";" + contenido);
+        enviaMensaje(cabecera + ";" + contenido, idJugador);
     }
 
     private void distancia(int id, int coordenadaXInicial, int coordenadaYInicial, int coordenadaXFinal, int coordenadaYFinal) throws IOException {
