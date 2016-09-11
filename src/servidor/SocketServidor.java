@@ -32,11 +32,11 @@ public class SocketServidor {
         while (!modeloServidor.esTerminado()) {
             Socket socket = svrSocket.accept();
             System.out.println("Cliente " + idClient + " conectado");
-            modeloServidor.añadeJugador(idClient, socket);
             serverView.actualizaTabla(idClient, 0, modeloServidor.buscaNickJugador(idClient));
+            modeloServidor.añadeJugador(idClient, socket);
             Thread t = new HebraServidor(socket, idClient, modeloServidor);
-            t.start();
             idClient++;
+            t.start();
         }
         System.out.println("Servidor finalizado");
         svrSocket.close();

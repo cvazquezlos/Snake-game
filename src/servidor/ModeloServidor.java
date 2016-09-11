@@ -126,14 +126,26 @@ public class ModeloServidor {
         jugadores.get(posicionCliente).getSocket().close();
         jugadores.get(posicionCliente).getStreamOut().close();
         jugadores.remove(posicionCliente);
+        reorganizaArrayList();
         vistaServidor.eliminaFila(posicionCliente);
+    }
+
+    private void reorganizaArrayList(){
+        ArrayList<Jugador> jugadoresAux = new ArrayList<Jugador>();
+        for (int i=0; i<jugadores.size(); i++){
+            jugadoresAux.add(jugadores.get(i));
+            jugadores.remove(i);
+        }
+        for (int i=0; i<jugadoresAux.size(); i++){
+            jugadores.add(jugadoresAux.get(i));
+        }
     }
 
     public String buscaNickJugador(int idJugador) {
         if (buscaPosicionJugador(idJugador) != -1) {
             return jugadores.get(buscaPosicionJugador(idJugador)).getNick();
         } else {
-            return null;
+            return "Jugador";
         }
     }
 

@@ -108,7 +108,7 @@ public class ServerView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void actualizaTabla(int idJugador, int puntuacion, String nickJugador) {
-        if (nickJugador==null) {
+        if (esNickBasico(nickJugador)) {
             Object[] fila = {("Jugador " + String.valueOf(idJugador)), String.valueOf(puntuacion)};
             model.addRow(fila);
         } else {
@@ -122,7 +122,7 @@ public class ServerView extends javax.swing.JFrame {
     public void actualizaPuntuacion(int idJugador, int nuevaPuntuacion, String nickJugador) {
         if (buscaJugador(idJugador) == -1) {
             actualizaTabla(idJugador, 0, nickJugador);
-        } else if (nickJugador==null) {
+        } else if (esNickBasico(nickJugador)) {
             Object[] filaActualizada = {("Jugador " + String.valueOf(idJugador)), String.valueOf(nuevaPuntuacion)};
             model.removeRow(idJugador);
             model.insertRow(idJugador, filaActualizada);
@@ -131,6 +131,10 @@ public class ServerView extends javax.swing.JFrame {
             model.removeRow(idJugador);
             model.insertRow(idJugador, filaActualizada);
         }
+    }
+
+    private boolean esNickBasico(String nick) {
+        return nick.equals("Jugador");
     }
 
     private int buscaJugador(int idJugador) {
